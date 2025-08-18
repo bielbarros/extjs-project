@@ -11,7 +11,6 @@ Um sistema de prática e aprendizado do ExtJS 3.4.1, desenvolvido para demonstra
 - [Como Executar](#como-executar)
 - [Funcionalidades](#funcionalidades)
 - [Screenshots](#screenshots)
-- [Contribuição](#contribuição)
 
 ## Visão Geral
 
