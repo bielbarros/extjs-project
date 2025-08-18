@@ -2,7 +2,7 @@
 
 Um sistema de prática e aprendizado do ExtJS 3.4.1, desenvolvido para demonstrar diferentes componentes e funcionalidades da biblioteca.
 
-## 📋 Índice
+## Índice
 
 - [Visão Geral](#visão-geral)
 - [Estrutura do Projeto](#estrutura-do-projeto)
@@ -187,5 +187,3 @@ Exemplos básicos de painéis e componentes simples do ExtJS.
 Desenvolvido por **Gabriel Barros** para fins de prática do ExtJS 3.4.1.
 
 ---
-
-**⭐ Se este projeto foi útil para você, considere dar uma estrela!**
