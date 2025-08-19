@@ -97,9 +97,15 @@ Ext.onReady(function(){
         ],
 
         buttons: [{
-            text: 'Salvar'
+            text: 'Salvar',
+            handler: function() {
+                  Ext.Msg.alert('Sucesso', 'Registro salvo com sucesso');
+            }
         },{
-            text: 'Cancelar'
+            text: 'Cancelar',
+            handler: function() {
+                simple.getForm().reset();
+            }
         }]
     });
 
