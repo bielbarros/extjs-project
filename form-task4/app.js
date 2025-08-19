@@ -8,17 +8,17 @@ Ext.onReady(function () {
         width: 1000,
         labelWidth: 110,
         bodyStyle: 'padding:8px',
-        // Removido o defaults global para permitir anchors específicos
+        
 
         items: [
-            // ====== PESSOA ====================================================
+            
             {
                 xtype: 'fieldset',
                 title: 'Pessoa',
                 defaults: { border: false }
             ,
                 items: [
-                    // Linha 1: Primeiro nome | Sobrenome  (2 por linha)
+                    
                     {
                         layout: 'column',
                         defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
@@ -27,7 +27,7 @@ Ext.onReady(function () {
                             { columnWidth: .50, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Sobrenome', name: 'sobrenome', anchor: '97.5%' }]}
                         ]
                     },
-                    // Linha 2: Data nasc. | Sexo | Estado civil  (3 por linha)
+                    
                     {
                         layout: 'column',
                         defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
@@ -45,7 +45,7 @@ Ext.onReady(function () {
                             }]}
                         ]
                     },
-                    // Linha 3: CPF | RG | Nacionalidade  (3 por linha)
+                    
                     {
                         layout: 'column',
                         defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
@@ -55,7 +55,7 @@ Ext.onReady(function () {
                             { columnWidth: .44, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Nacionalidade', name: 'nacionalidade', anchor: '98%' }]}
                         ]
                     },
-                    // Linha 4: Email | Telefone | Celular  (3 por linha, email mais largo)
+                    
                     {
                         layout: 'column',
                         defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
@@ -68,13 +68,13 @@ Ext.onReady(function () {
                 ]
             },
 
-            // ====== ENDEREÇO ==================================================
+            
             {
                 xtype: 'fieldset',
                 title: 'Endereço',
                 defaults: { border: false },
                 items: [
-                    // Linha 1: País | UF | Município  (3 por linha)
+                    
                     {
                         layout: 'column',
                         defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
@@ -92,7 +92,7 @@ Ext.onReady(function () {
                             { columnWidth: .40, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Município', name: 'municipio', anchor: '95%' }]}
                         ]
                     },
-                    // Linha 2: CEP | Logradouro (largo) | Número  (4 por linha prático)
+                   
                     {
                         layout: 'column',
                         defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
@@ -102,7 +102,7 @@ Ext.onReady(function () {
                             { columnWidth: .40, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Número', name: 'numero', anchor: '95%' }]}
                         ]
                     },
-                    // Linha 3: Bairro | Complemento | Referência  (3 por linha)
+                    
                     {
                         layout: 'column',
                         defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
@@ -112,7 +112,7 @@ Ext.onReady(function () {
                             { columnWidth: .34, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Referência', name: 'referencia', anchor: '93%' }]}
                         ]
                     },
-                    // Linha 4: Latitude | Longitude  (2 por linha)
+                    
                     {
                         layout: 'column',
                         defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
@@ -124,7 +124,7 @@ Ext.onReady(function () {
                 ]
             },
 
-            // Linha final: Ativo
+            
             {
                 layout: 'column',
                 border: false,
