@@ -4,7 +4,7 @@ Ext.onReady(function() {
         frame: true,
         title: 'Cadastro de Município',
         bodyStyle: 'padding:5px 5px 0',
-        width: 1100,
+        width: 1000,
         items: [{
             layout: 'column',
             items: [{
@@ -37,7 +37,7 @@ Ext.onReady(function() {
                     }),
                     displayField: 'nome',
                     valueField: 'id',
-                    editable: false,
+                    width: 150,
                     mode: 'local',
                     forceSelection: true,
                     triggerAction: 'all',
@@ -48,6 +48,7 @@ Ext.onReady(function() {
                 items: [{
                     fieldLabel: 'UF',
                     name: 'uf',
+                    anchor: '95%',
                     allowBlank: false,
                     xtype: 'combo',
                     width: 300,
@@ -94,7 +95,7 @@ Ext.onReady(function() {
         }, {
             fieldLabel: 'Nome',
             name: 'nome',
-            anchor: '100%',
+            anchor: '97.5%',
             xtype: 'textfield',
         },
         {
@@ -121,7 +122,7 @@ Ext.onReady(function() {
                 items: [{
                     fieldLabel: 'DDD',
                     name: 'ddd',
-                    anchor: '95%',
+                    anchor: '96%',
                     xtype: 'numberfield',
                 }]
             }, {
@@ -136,6 +137,7 @@ Ext.onReady(function() {
                 items: [{
                     fieldLabel: 'CEP Inicial',
                     name: 'cep_inicial',
+                    anchor: '95%',
                     xtype: 'numberfield',
                 }]
             }, {
@@ -144,6 +146,7 @@ Ext.onReady(function() {
                 items: [{
                     fieldLabel: 'CEP Final',
                     name: 'cep_final',
+                    anchor: '95%',
                     xtype: 'numberfield',
                 }]
             }]
@@ -153,6 +156,7 @@ Ext.onReady(function() {
             fieldLabel: 'Timezone',
             name: 'timezone',
             allowBlank:false,
+            anchor: '47.5%',
             xtype: 'combo',
             store: new Ext.data.ArrayStore({
                 fields: ['id', 'nome'],
@@ -182,6 +186,7 @@ Ext.onReady(function() {
                 items: [{
                     fieldLabel: 'Latitude',
                     name: 'latitude',
+                    anchor: '95%',
                     xtype: 'numberfield',
                 }]
             }, {
@@ -190,6 +195,7 @@ Ext.onReady(function() {
                 items: [{
                     fieldLabel: 'Longitude',
                     name: 'longitude',
+                    anchor: '95%',
                     xtype: 'numberfield',
                 }]
             }]
@@ -199,7 +205,7 @@ Ext.onReady(function() {
             fieldLabel: 'Observação',
             name: 'observacao',
             xtype: 'textarea',
-            width: 700,
+            width: 850,
             height: 100,
         },
 
