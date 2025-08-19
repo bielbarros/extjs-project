@@ -7,6 +7,7 @@ Um sistema de prática e aprendizado do ExtJS 3.4.1, desenvolvido para demonstra
 - [Visão Geral](#visão-geral)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Módulos Disponíveis](#módulos-disponíveis)
+- [Formulários Práticos (Form-Tasks)](#formulários-práticos-form-tasks)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Como Executar](#como-executar)
 - [Funcionalidades](#funcionalidades)
@@ -20,7 +21,11 @@ Este projeto é uma coleção de exemplos práticos do ExtJS 3.4.1, organizados 
 
 ```
 extjs-project/
-├── formulario-simples/     # Sistema de formulários avançados
+├── form-task1/             # Formulário básico com campos simples
+├── form-task2/             # Formulário com validações
+├── form-task3/             # Formulário com layout column
+├── form-task4/             # Formulário com fieldsets
+├── formulario/             # Sistema de formulários avançados
 ├── panel-simples/          # Exemplos de painéis básicos
 ├── window/                 # Sistema de janelas simples
 ├── window-navigation/      # Janelas com navegação
@@ -93,6 +98,52 @@ Exemplos básicos de painéis e componentes simples do ExtJS.
 
 ![Painel Simples](panel-simples/img/panel.png)
 
+## Formulários Práticos (Form-Tasks)
+
+### 6. **Form-Task1** 
+Formulário básico com campos simples e layout básico.
+
+**Características:**
+- Campos de texto básicos
+- Layout simples e direto
+- Demonstração de fieldLabel e labelWidth
+- Estrutura fundamental do ExtJS
+
+![Form-Task1](form-task1/img/form.png)
+
+### 7. **Form-Task2** 
+Formulário com validações e campos específicos.
+
+**Características:**
+- Validações de campos obrigatórios
+- Diferentes tipos de campos (text, number, date)
+- Layout organizado
+- Demonstração de validações
+
+![Form-Task2](form-task2/img/form.png)
+
+### 8. **Form-Task3** 
+Formulário com layout column e organização em colunas.
+
+**Características:**
+- Layout column para organizar campos lado a lado
+- Campos organizados em linhas
+- Demonstração de columnWidth
+- Estrutura mais complexa
+
+![Form-Task3](form-task3/img/form.png)
+
+### 9. **Form-Task4** 
+Formulário com fieldsets e organização por seções.
+
+**Características:**
+- Fieldsets para organizar campos por categoria
+- Layout column com fieldsets
+- Campos organizados em grupos lógicos
+- Estrutura hierárquica
+
+![Form-Task4](form-task4/img/form.png)
+
 ## Tecnologias Utilizadas
 
 - **ExtJS 3.4.1** - Framework JavaScript principal
@@ -120,13 +171,19 @@ Exemplos básicos de painéis e componentes simples do ExtJS.
 3. **Exemplos de execução:**
    ```bash
    # Para o sistema de formulários avançados
-   open formulario-avançado/index.html
+   open formulario/index.html
    
    # Para o sistema xtypes
    open xtypes/index.html
    
    # Para janelas simples
    open window/index.html
+   
+   # Para formulários práticos
+   open form-task1/index.html
+   open form-task2/index.html
+   open form-task3/index.html
+   open form-task4/index.html
    ```
 
 ## Funcionalidades
@@ -146,6 +203,8 @@ Exemplos básicos de painéis e componentes simples do ExtJS.
 - **CheckBox** - Caixas de seleção
 - **MessageBox** - Diálogos de mensagem
 - **ProgressBar** - Barras de progresso
+- **FieldSet** - Agrupamento de campos
+- **Column Layout** - Layout em colunas
 
 ### Validações Implementadas
 
@@ -162,6 +221,8 @@ Exemplos básicos de painéis e componentes simples do ExtJS.
 - **Form Layout** - Layout específico para formulários
 - **HBox Layout** - Layout horizontal
 - **VBox Layout** - Layout vertical
+- **Column Layout** - Layout em colunas com columnWidth
+- **Anchor Layout** - Layout com ancoragem percentual
 
 ## Screenshots
 
@@ -180,6 +241,11 @@ Exemplos básicos de painéis e componentes simples do ExtJS.
 ### Painéis Simples
 ![Painel Básico](panel-simples/img/panel.png)
 
+### Formulários Práticos
+![Form-Task1](form-task1/img/form.png)
+![Form-Task2](form-task2/img/form.png)
+![Form-Task3](form-task3/img/form.png)
+![Form-Task4](form-task4/img/form.png)
 
 ##  Autor
 
