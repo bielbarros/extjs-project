@@ -81,11 +81,17 @@ Ext.onReady(function(){
         width: 422
     });
 
-    // Título principal
+    // Título principal com aparência de GridPanel
     var titulo = new Ext.Panel({
-        html: '<h2>Lista de Países</h2>',
+        title: 'Lista de Países',
         width: 422,
-        bodyStyle: 'padding: 10px; background-color: #f0f0f0; border-bottom: 1px solid #ccc;'
+        height: 35,
+        frame: false,
+        border: true,
+        header: true,
+        bodyBorder: false,
+        bodyStyle: 'display: none;',
+        cls: 'x-grid-panel'
     });
 
     // Toolbar com campo de busca
