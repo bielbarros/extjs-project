@@ -104,7 +104,7 @@ Ext.onReady(function(){
             xtype: 'tbspacer',
             width: 20
         }, {
-            text: 'Limpar Filtro',
+            text: '🔄 Limpar Filtro',
             handler: function() {
                 campoBusca.setValue('');
                 store.clearFilter();
@@ -116,8 +116,7 @@ Ext.onReady(function(){
     var toolbarBotoes = new Ext.Toolbar({
         width: 422,
         items: [{
-            text: 'Novo',
-            iconCls: 'add',
+            text: '➕ Novo',
             handler: function() {
                 console.log('Novo país');
                 alert('Botão Novo clicado!');
@@ -126,8 +125,7 @@ Ext.onReady(function(){
             xtype: 'tbspacer',
             width: 10
         }, {
-            text: 'Editar',
-            iconCls: 'edit',
+            text: '✏️ Editar',
             handler: function() {
                 console.log('Editar país');
                 alert('Botão Editar clicado!');
@@ -136,8 +134,7 @@ Ext.onReady(function(){
             xtype: 'tbspacer',
             width: 10
         }, {
-            text: 'Excluir',
-            iconCls: 'delete',
+            text: '🗑️ Excluir',
             handler: function() {
                 console.log('Excluir país');
                 alert('Botão Excluir clicado!');
