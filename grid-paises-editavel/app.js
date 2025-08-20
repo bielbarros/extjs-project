@@ -112,14 +112,88 @@ Ext.onReady(function(){
         }]
     });
 
+
+
+    // Função para criar nova janela com formulário
+    function criarJanelaPais() {
+        // Criar novo formulário para cada janela
+        var novoForm = new Ext.form.FormPanel({
+            labelWidth: 100,
+            frame: true,
+            title: 'Cadastro de País',
+            width: 400,
+            defaults: {width: 275},
+            defaultType: 'textfield',
+            items: [{
+                fieldLabel: 'Nome',
+                name: 'nome',
+                allowBlank: false
+            }, {
+                fieldLabel: 'Sigla',
+                name: 'sigla'
+            }, {
+                fieldLabel: 'Código BACEN',
+                name: 'codigo_bacen',
+                xtype: 'numberfield'
+            }],
+            buttons: [{
+                text: 'Salvar',
+                handler: function() {
+                    var form = novoForm.getForm();
+                    if (form.isValid()) {
+                        var values = form.getValues();
+                        var janela = novoForm.ownerCt;
+                        
+                        if (janela.modo === 'novo') {
+                            // Adicionar novo país
+                            store.add(new Ext.data.Record({
+                                nome: values.nome,
+                                sigla: values.sigla,
+                                codigo_bacen: parseInt(values.codigo_bacen)
+                            }));
+                        } else {
+                            // Editar país existente
+                            var record = janela.recordEditando;
+                            record.set('nome', values.nome);
+                            record.set('sigla', values.sigla);
+                            record.set('codigo_bacen', parseInt(values.codigo_bacen));
+                        }
+                        
+                        janela.close();
+                        form.reset();
+                    }
+                }
+            }, {
+                text: 'Cancelar',
+                handler: function() {
+                    var janela = novoForm.ownerCt;
+                    janela.close();
+                    form.reset();
+                }
+            }]
+        });
+        
+        return new Ext.Window({
+            title: 'Cadastro de País',
+            width: 450,
+            height: 200,
+            modal: true,
+            layout: 'fit',
+            items: novoForm,
+            closeAction: 'hide'
+        });
+    }
+
     // Toolbar com botões de ação
     var toolbarBotoes = new Ext.Toolbar({
         width: 422,
         items: [{
             text: '➕ Novo',
             handler: function() {
-                console.log('Novo país');
-                alert('Botão Novo clicado!');
+                var janela = criarJanelaPais();
+                janela.modo = 'novo';
+                janela.setTitle('Novo País');
+                janela.show();
             }
         }, {
             xtype: 'tbspacer',
@@ -127,8 +201,27 @@ Ext.onReady(function(){
         }, {
             text: '✏️ Editar',
             handler: function() {
-                console.log('Editar país');
-                alert('Botão Editar clicado!');
+                var selection = grid.getSelectionModel().getSelected();
+                
+                if (!selection) {
+                    alert('Selecione um país para editar!');
+                    return;
+                }
+                
+                var janela = criarJanelaPais();
+                janela.modo = 'editar';
+                janela.recordEditando = selection;
+                janela.setTitle('Editar País');
+                
+                // Preencher o formulário com os dados selecionados
+                var form = janela.items.get(0).getForm();
+                form.setValues({
+                    nome: selection.get('nome'),
+                    sigla: selection.get('sigla'),
+                    codigo_bacen: selection.get('codigo_bacen')
+                });
+                
+                janela.show();
             }
         }, {
             xtype: 'tbspacer',
@@ -136,8 +229,15 @@ Ext.onReady(function(){
         }, {
             text: '🗑️ Excluir',
             handler: function() {
-                console.log('Excluir país');
-                alert('Botão Excluir clicado!');
+                var selection = grid.getSelectionModel().getSelected();
+                if (!selection) {
+                    alert('Selecione um país para excluir!');
+                    return;
+                }
+                
+                if (confirm('Tem certeza que deseja excluir o país "' + selection.get('nome') + '"?')) {
+                    store.remove(selection);
+                }
             }
         }]
     });
