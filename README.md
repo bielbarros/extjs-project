@@ -26,6 +26,8 @@ extjs-project/
 ├── form-task3/             # Formulário com layout column
 ├── form-task4/             # Formulário com fieldsets
 ├── formulario/             # Sistema de formulários avançados
+├── grid-paises-simples/    # Grid simples de países
+├── grid-paises-editavel/   # Grid editável de países
 ├── panel-simples/          # Exemplos de painéis básicos
 ├── window/                 # Sistema de janelas simples
 ├── window-navigation/      # Janelas com navegação
@@ -87,7 +89,35 @@ Janelas com layout border e navegação lateral, demonstrando layouts mais compl
 
 ![Janela com Navegação](window-navigation/img/window-navigation.png)
 
-### 5. **Panel-Simples** 
+### 5. **Grid-Paises-Simples** 
+Grid básico que lista países com dados estáticos.
+
+**Características:**
+- Grid simples com dados de países
+- Colunas: Nome, Sigla, Código BACEN
+- Dados estáticos carregados
+- Layout limpo e organizado
+- Demonstração básica de GridPanel
+
+![Grid Simples de Países](grid-paises-simples/img/grid.png)
+
+### 6. **Grid-Paises-Editavel** 
+Grid avançado com funcionalidades CRUD completas.
+
+**Características:**
+- Grid com dados de países
+- Campo de busca por descrição
+- Botões de ação: Novo, Editar, Excluir
+- Formulário modal para criar/editar países
+- Validação de formulários
+- Filtro em tempo real
+- Interface moderna com ícones
+
+![Grid Editável - Visão Geral](grid-paises-editavel/img/imagem.png)
+![Grid Editável - Formulário Novo](grid-paises-editavel/img/imagem%20(1).png)
+![Grid Editável - Formulário Editar](grid-paises-editavel/img/imagem%20(2).png)
+
+### 7. **Panel-Simples** 
 Exemplos básicos de painéis e componentes simples do ExtJS.
 
 **Características:**
@@ -100,7 +130,7 @@ Exemplos básicos de painéis e componentes simples do ExtJS.
 
 ## Formulários Práticos (Form-Tasks)
 
-### 6. **Form-Task1** 
+### 8. **Form-Task1** 
 Formulário básico com campos simples e layout básico.
 
 **Características:**
@@ -111,7 +141,7 @@ Formulário básico com campos simples e layout básico.
 
 ![Form-Task1](form-task1/img/form.png)
 
-### 7. **Form-Task2** 
+### 9. **Form-Task2** 
 Formulário com validações e campos específicos.
 
 **Características:**
@@ -122,7 +152,7 @@ Formulário com validações e campos específicos.
 
 ![Form-Task2](form-task2/img/form.png)
 
-### 8. **Form-Task3** 
+### 10. **Form-Task3** 
 Formulário com layout column e organização em colunas.
 
 **Características:**
@@ -133,7 +163,7 @@ Formulário com layout column e organização em colunas.
 
 ![Form-Task3](form-task3/img/form.png)
 
-### 9. **Form-Task4** 
+### 11. **Form-Task4** 
 Formulário com fieldsets e organização por seções.
 
 **Características:**
@@ -175,6 +205,10 @@ Formulário com fieldsets e organização por seções.
    
    # Para o sistema xtypes
    open xtypes/index.html
+   
+   # Para grids de países
+   open grid-paises-simples/index.html
+   open grid-paises-editavel/index.html
    
    # Para janelas simples
    open window/index.html
@@ -231,6 +265,10 @@ Formulário com fieldsets e organização por seções.
 
 ### Sistema XTypes
 ![XTypes Principal](xtypes/img/xtype.png)
+
+### Grids de Países
+![Grid Simples](grid-paises-simples/img/grid.png)
+![Grid Editável](grid-paises-editavel/img/imagem.png)
 
 ### Janelas Simples
 ![Janela Básica](window/img/window1.png)
