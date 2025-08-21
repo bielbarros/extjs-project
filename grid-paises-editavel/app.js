@@ -102,7 +102,7 @@ Ext.onReady(function(){
             style: 'margin-right: 5px;'
         }, campoBusca, {
             xtype: 'tbspacer',
-            width: 20
+            width: 10
         }, {
             text: '🔄 Limpar Filtro',
             handler: function() {
