@@ -21,17 +21,19 @@ Este projeto é uma coleção de exemplos práticos do ExtJS 3.4.1, organizados 
 
 ```
 extjs-project/
-├── form-task1/             # Formulário básico com campos simples
-├── form-task2/             # Formulário com validações
-├── form-task3/             # Formulário com layout column
-├── form-task4/             # Formulário com fieldsets
-├── formulario/             # Sistema de formulários avançados
-├── grid-paises-simples/    # Grid simples de países
-├── grid-paises-editavel/   # Grid editável de países
-├── panel-simples/          # Exemplos de painéis básicos
-├── window/                 # Sistema de janelas simples
-├── window-navigation/      # Janelas com navegação
-├── xtypes/                 # Sistema completo com xtypes
+├── Telas-ExtJs/              # Módulos principais do ExtJS
+│   ├── form-task1/           # Formulário básico com campos simples
+│   ├── form-task2/           # Formulário com validações
+│   ├── form-task3/           # Formulário com layout column
+│   ├── form-task4/           # Formulário com fieldsets
+│   ├── formulario/           # Sistema de formulários avançados
+│   ├── grid-paises-simples/  # Grid simples de países
+│   ├── panel-simples/        # Exemplos de painéis básicos
+│   ├── window/               # Sistema de janelas simples
+│   ├── window-navigation/    # Janelas com navegação
+│   └── xtypes/               # Sistema completo com xtypes
+├── grid-paises-editavel/     # Grid editável de países (fora da pasta Telas-ExtJs)
+├── PaisesAPI/                # Backend C# API para integração
 └── README.md
 ```
 
@@ -47,9 +49,9 @@ Sistema de formulários com validação, grid interativo e diferentes tipos de c
 - Componentes interativos (alert, confirm, prompt)
 - Progress bar com animação
 
-![Formulário Avançado](formulario/img/form.png)
-![Formulário - Grid](formulario/img/form2.png)
-![Formulário - Componentes](formulario/img/form3.png)
+![Formulário Avançado](Telas-ExtJs/formulario/img/form.png)
+![Formulário - Grid](Telas-ExtJs/formulario/img/form2.png)
+![Formulário - Componentes](Telas-ExtJs/formulario/img/form3.png)
 
 ### 2. **Xtypes** 
 Sistema com layout border, navegação lateral e formulários organizados por categorias.
@@ -61,11 +63,11 @@ Sistema com layout border, navegação lateral e formulários organizados por ca
 - Campo de pesquisa funcional
 - Formulários com validação específica
 
-![XTypes - Visão Geral](xtypes/img/xtype.png)
-![XTypes - Dados Pessoais](xtypes/img/xtype2.png)
-![XTypes - Contato](xtypes/img/xtype3.png)
-![XTypes - Endereço](xtypes/img/xtype4.png)
-![XTypes - Profissional](xtypes/img/xtype5.png)
+![XTypes - Visão Geral](Telas-ExtJs/xtypes/img/xtype.png)
+![XTypes - Dados Pessoais](Telas-ExtJs/xtypes/img/xtype2.png)
+![XTypes - Contato](Telas-ExtJs/xtypes/img/xtype3.png)
+![XTypes - Endereço](Telas-ExtJs/xtypes/img/xtype4.png)
+![XTypes - Profissional](Telas-ExtJs/xtypes/img/xtype5.png)
 
 ### 3. **Window** 
 Sistema simples de janelas com abas, demonstrando conceitos básicos do ExtJS.
@@ -76,7 +78,7 @@ Sistema simples de janelas com abas, demonstrando conceitos básicos do ExtJS.
 - Conteúdo HTML simples
 - Estrutura básica e limpa
 
-![Janela Simples](window/img/window1.png)
+![Janela Simples](Telas-ExtJs/window/img/window1.png)
 
 ### 4. **Window-Navigation** 
 Janelas com layout border e navegação lateral, demonstrando layouts mais complexos.
@@ -87,7 +89,7 @@ Janelas com layout border e navegação lateral, demonstrando layouts mais compl
 - Painel de navegação colapsível
 - Estrutura organizada
 
-![Janela com Navegação](window-navigation/img/window-navigation.png)
+![Janela com Navegação](Telas-ExtJs/window-navigation/img/window-navigation.png)
 
 ### 5. **Grid-Paises-Simples** 
 Grid básico que lista países com dados estáticos.
@@ -99,10 +101,10 @@ Grid básico que lista países com dados estáticos.
 - Layout limpo e organizado
 - Demonstração básica de GridPanel
 
-![Grid Simples de Países](grid-paises-simples/img/grid.png)
+![Grid Simples de Países](Telas-ExtJs/grid-paises-simples/img/grid.png)
 
 ### 6. **Grid-Paises-Editavel** 
-Grid avançado com funcionalidades CRUD completas.
+Grid avançado com funcionalidades CRUD completas e integração com API C#.
 
 **Características:**
 - Grid com dados de países
@@ -112,6 +114,7 @@ Grid avançado com funcionalidades CRUD completas.
 - Validação de formulários
 - Filtro em tempo real
 - Interface moderna com ícones
+- **Integração com API C# backend**
 
 ![Grid Editável - Visão Geral](grid-paises-editavel/img/imagem.png)
 ![Grid Editável - Formulário Novo](grid-paises-editavel/img/imagem%20(1).png)
@@ -126,7 +129,7 @@ Exemplos básicos de painéis e componentes simples do ExtJS.
 - Demonstração de layouts
 - Código limpo e direto
 
-![Painel Simples](panel-simples/img/panel.png)
+![Painel Simples](Telas-ExtJs/panel-simples/img/panel.png)
 
 ## Formulários Práticos (Form-Tasks)
 
@@ -139,7 +142,7 @@ Formulário básico com campos simples e layout básico.
 - Demonstração de fieldLabel e labelWidth
 - Estrutura fundamental do ExtJS
 
-![Form-Task1](form-task1/img/form.png)
+![Form-Task1](Telas-ExtJs/form-task1/img/form.png)
 
 ### 9. **Form-Task2** 
 Formulário com validações e campos específicos.
@@ -150,7 +153,7 @@ Formulário com validações e campos específicos.
 - Layout organizado
 - Demonstração de validações
 
-![Form-Task2](form-task2/img/form.png)
+![Form-Task2](Telas-ExtJs/form-task2/img/form.png)
 
 ### 10. **Form-Task3** 
 Formulário com layout column e organização em colunas.
@@ -161,7 +164,7 @@ Formulário com layout column e organização em colunas.
 - Demonstração de columnWidth
 - Estrutura mais complexa
 
-![Form-Task3](form-task3/img/form.png)
+![Form-Task3](Telas-ExtJs/form-task3/img/form.png)
 
 ### 11. **Form-Task4** 
 Formulário com fieldsets e organização por seções.
@@ -172,19 +175,21 @@ Formulário com fieldsets e organização por seções.
 - Campos organizados em grupos lógicos
 - Estrutura hierárquica
 
-![Form-Task4](form-task4/img/form.png)
+![Form-Task4](Telas-ExtJs/form-task4/img/form.png)
 
 ## Tecnologias Utilizadas
 
 - **ExtJS 3.4.1** - Framework JavaScript principal
 - **HTML5** - Estrutura das páginas
 - **JavaScript** - Lógica de programação
+- **C# .NET 8** - Backend API (para grid-paises-editavel)
 
 ## Como Executar
 
 ### Pré-requisitos
 - Navegador web moderno (Chrome, Firefox, Safari, Edge)
 - Servidor web local (opcional, mas recomendado)
+- .NET 8 SDK (para executar a API backend)
 
 ### Passos para Execução
 
@@ -194,30 +199,41 @@ Formulário com fieldsets e organização por seções.
    cd extjs-project
    ```
 
-2. **Escolha um módulo:**
-   - Navegue até a pasta do módulo desejado
+2. **Para módulos básicos (sem backend):**
+   - Navegue até a pasta `Telas-ExtJs`
+   - Escolha o módulo desejado
    - Abra o arquivo `index.html` no navegador
 
-3. **Exemplos de execução:**
+3. **Para o grid-paises-editavel (com backend):**
+   ```bash
+   # 1. Inicie a API backend
+   cd PaisesAPI/PaisesAPI
+   dotnet run
+   
+   # 2. Em outro terminal, abra o frontend
+   open grid-paises-editavel/index.html
+   ```
+
+4. **Exemplos de execução:**
    ```bash
    # Para o sistema de formulários avançados
-   open formulario/index.html
+   open Telas-ExtJs/formulario/index.html
    
    # Para o sistema xtypes
-   open xtypes/index.html
+   open Telas-ExtJs/xtypes/index.html
    
    # Para grids de países
-   open grid-paises-simples/index.html
-   open grid-paises-editavel/index.html
+   open Telas-ExtJs/grid-paises-simples/index.html
+   open grid-paises-editavel/index.html  # (com backend)
    
    # Para janelas simples
-   open window/index.html
+   open Telas-ExtJs/window/index.html
    
    # Para formulários práticos
-   open form-task1/index.html
-   open form-task2/index.html
-   open form-task3/index.html
-   open form-task4/index.html
+   open Telas-ExtJs/form-task1/index.html
+   open Telas-ExtJs/form-task2/index.html
+   open Telas-ExtJs/form-task3/index.html
+   open Telas-ExtJs/form-task4/index.html
    ```
 
 ## Funcionalidades
@@ -261,31 +277,31 @@ Formulário com fieldsets e organização por seções.
 ## Screenshots
 
 ### Sistema de Formulários
-![Formulário Principal](formulario/img/form.png)
+![Formulário Principal](Telas-ExtJs/formulario/img/form.png)
 
 ### Sistema XTypes
-![XTypes Principal](xtypes/img/xtype.png)
+![XTypes Principal](Telas-ExtJs/xtypes/img/xtype.png)
 
 ### Grids de Países
-![Grid Simples](grid-paises-simples/img/grid.png)
+![Grid Simples](Telas-ExtJs/grid-paises-simples/img/grid.png)
 ![Grid Editável](grid-paises-editavel/img/imagem.png)
 
 ### Janelas Simples
-![Janela Básica](window/img/window1.png)
+![Janela Básica](Telas-ExtJs/window/img/window1.png)
 
 ### Janelas com Navegação
-![Janela com Navegação](window-navigation/img/window-navigation.png)
+![Janela com Navegação](Telas-ExtJs/window-navigation/img/window-navigation.png)
 
 ### Painéis Simples
-![Painel Básico](panel-simples/img/panel.png)
+![Painel Básico](Telas-ExtJs/panel-simples/img/panel.png)
 
 ### Formulários Práticos
-![Form-Task1](form-task1/img/form.png)
-![Form-Task2](form-task2/img/form.png)
-![Form-Task3](form-task3/img/form.png)
-![Form-Task4](form-task4/img/form.png)
+![Form-Task1](Telas-ExtJs/form-task1/img/form.png)
+![Form-Task2](Telas-ExtJs/form-task2/img/form.png)
+![Form-Task3](Telas-ExtJs/form-task3/img/form.png)
+![Form-Task4](Telas-ExtJs/form-task4/img/form.png)
 
-##  Autor
+## Autor
 
 Desenvolvido por **Gabriel Barros** para fins de prática do ExtJS 3.4.1.
 
