@@ -1,30 +1,21 @@
 Ext.onReady(function(){
     var statusElement = document.getElementById('status');
-    // Dados de países
-    var myData = [
-        ['Brasil', 'BR', 1058],
-        ['Argentina', 'AR', 1032],
-        ['Uruguay', 'UY', 1032],
-        ['Paraguay', 'PY', 124],
-        ['Chile', 'CL', 484],
-        ['Bolivia', 'BO', 124],
-        ['Peru', 'PE', 484],
-        ['Colombia', 'CO', 126],
-        ['Venezuela', 'VE', 488],
-        ['México', 'MX', 484],
-        ['Canada', 'CA', 129],
-        ['Portugal', 'PT', 14],
-        ['Espanha', 'ES', 484],
-        ['França', 'FR', 124],
-    ];
-
-    // Store para a grid
-    var store = new Ext.data.ArrayStore({
-        fields: ['nome', 'sigla', 'codigo_bacen']
+    // Store para a grid - Conectado com API C#
+    var store = new Ext.data.JsonStore({
+        url: 'http://localhost:5111/api/paises',
+        root: '',
+        fields: ['id', 'nome', 'sigla', 'codigoBacen', 'ativo'],
+        autoLoad: true,
+        listeners: {
+            load: function(store, records, options) {
+                console.log('Dados carregados da API:', records.length, 'registros');
+            },
+            loadexception: function(store, options, response, e) {
+                console.error('Erro ao carregar dados da API:', e);
+                Ext.Msg.alert('Erro', 'Não foi possível carregar os dados da API. Verifique se a API está rodando.');
+            }
+        }
     });
-
-    // Carregar dados
-    store.loadData(myData);
 
     // Campo de busca
     var campoBusca = new Ext.form.TextField({
@@ -42,7 +33,7 @@ Ext.onReady(function(){
                     store.filterBy(function(record) {
                         var nome = record.get('nome').toLowerCase();
                         var sigla = record.get('sigla').toLowerCase();
-                        var codigo = record.get('codigo_bacen').toString();
+                        var codigo = record.get('codigoBacen').toString();
                         
                         return nome.indexOf(valor) !== -1 || 
                                sigla.indexOf(valor) !== -1 || 
@@ -71,20 +62,29 @@ Ext.onReady(function(){
             },
             {
                 header: 'Código BACEN',
-                dataIndex: 'codigo_bacen',
+                dataIndex: 'codigoBacen',
                 width: 120,
                 sortable: true
+            },
+            {
+                header: 'Ativo',
+                dataIndex: 'ativo',
+                width: 80,
+                sortable: true,
+                renderer: function(value) {
+                    return value ? 'Sim' : 'Não';
+                }
             }
         ],
         stripeRows: true,
         height: 350,
-        width: 422
+        width: 502
     });
 
     // Título principal com aparência de GridPanel
     var titulo = new Ext.Panel({
         title: 'Lista de Países',
-        width: 422,
+        width: 502,
         height: 35,
         frame: false,
         border: true,
@@ -96,7 +96,7 @@ Ext.onReady(function(){
 
     // Toolbar com campo de busca
     var toolbarBusca = new Ext.Toolbar({
-        width: 422,
+        width: 502,
         items: [{
             text: 'Descrição:',
             style: 'margin-right: 5px;'
@@ -133,8 +133,13 @@ Ext.onReady(function(){
                 name: 'sigla'
             }, {
                 fieldLabel: 'Código BACEN',
-                name: 'codigo_bacen',
-                xtype: 'numberfield'
+                name: 'codigoBacen',
+                xtype: 'textfield'
+            }, {
+                fieldLabel: 'Ativo',
+                name: 'ativo',
+                xtype: 'checkbox',
+                checked: true
             }],
             buttons: [{
                 text: 'Salvar',
@@ -145,22 +150,62 @@ Ext.onReady(function(){
                         var janela = novoForm.ownerCt;
                         
                         if (janela.modo === 'novo') {
-                            // Adicionar novo país
-                            store.add(new Ext.data.Record({
+                            // Criar novo país via API
+                            var dadosEnviados = {
                                 nome: values.nome,
                                 sigla: values.sigla,
-                                codigo_bacen: parseInt(values.codigo_bacen)
-                            }));
+                                codigoBacen: values.codigoBacen.toString(),
+                                ativo: values.ativo === 'on' || values.ativo === true
+                            };
+                            console.log('Dados sendo enviados (POST):', dadosEnviados);
+                            
+                            Ext.Ajax.request({
+                                url: 'http://localhost:5111/api/paises',
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                jsonData: dadosEnviados,
+                                success: function(response) {
+                                    var result = Ext.decode(response.responseText);
+                                    store.reload();
+                                    janela.close();
+                                    form.reset();
+                                    Ext.Msg.alert('Sucesso', 'País criado com sucesso!');
+                                },
+                                failure: function(response) {
+                                    console.error('Resposta de erro (POST):', response.responseText);
+                                    var error = Ext.decode(response.responseText);
+                                    Ext.Msg.alert('Erro', error || 'Erro ao criar país');
+                                }
+                            });
                         } else {
-                            // Editar país existente
+                            // Atualizar país existente via API
                             var record = janela.recordEditando;
-                            record.set('nome', values.nome);
-                            record.set('sigla', values.sigla);
-                            record.set('codigo_bacen', parseInt(values.codigo_bacen));
+                            var dadosEnviados = {
+                                nome: values.nome,
+                                sigla: values.sigla,
+                                codigoBacen: values.codigoBacen.toString(),
+                                ativo: values.ativo === 'on' || values.ativo === true
+                            };
+                            console.log('Dados sendo enviados (PUT):', dadosEnviados);
+                            
+                            Ext.Ajax.request({
+                                url: 'http://localhost:5111/api/paises/' + record.get('id'),
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                jsonData: dadosEnviados,
+                                success: function(response) {
+                                    store.reload();
+                                    janela.close();
+                                    form.reset();
+                                    Ext.Msg.alert('Sucesso', 'País atualizado com sucesso!');
+                                },
+                                failure: function(response) {
+                                    console.error('Resposta de erro (PUT):', response.responseText);
+                                    var error = Ext.decode(response.responseText);
+                                    Ext.Msg.alert('Erro', error || 'Erro ao atualizar país');
+                                }
+                            });
                         }
-                        
-                        janela.close();
-                        form.reset();
                     }
                 }
             }, {
@@ -168,7 +213,7 @@ Ext.onReady(function(){
                 handler: function() {
                     var janela = novoForm.ownerCt;
                     janela.close();
-                    form.reset();
+                    novoForm.getForm().reset();
                 }
             }]
         });
@@ -186,7 +231,7 @@ Ext.onReady(function(){
 
     // Toolbar com botões de ação
     var toolbarBotoes = new Ext.Toolbar({
-        width: 422,
+        width: 502,
         items: [{
             text: '➕ Novo',
             handler: function() {
@@ -218,7 +263,8 @@ Ext.onReady(function(){
                 form.setValues({
                     nome: selection.get('nome'),
                     sigla: selection.get('sigla'),
-                    codigo_bacen: selection.get('codigo_bacen')
+                    codigoBacen: selection.get('codigoBacen'),
+                    ativo: selection.get('ativo')
                 });
                 
                 janela.show();
@@ -236,7 +282,18 @@ Ext.onReady(function(){
                 }
                 
                 if (confirm('Tem certeza que deseja excluir o país "' + selection.get('nome') + '"?')) {
-                    store.remove(selection);
+                    Ext.Ajax.request({
+                        url: 'http://localhost:5111/api/paises/' + selection.get('id'),
+                        method: 'DELETE',
+                        success: function(response) {
+                            store.reload();
+                            Ext.Msg.alert('Sucesso', 'País excluído com sucesso!');
+                        },
+                        failure: function(response) {
+                            var error = Ext.decode(response.responseText);
+                            Ext.Msg.alert('Erro', error || 'Erro ao excluir país');
+                        }
+                    });
                 }
             }
         }]
