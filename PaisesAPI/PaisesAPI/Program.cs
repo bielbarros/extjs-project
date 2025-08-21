@@ -3,7 +3,10 @@ using PaisesAPI.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers(); // Adicionar suporte a controllers
+builder.Services.AddControllers(options => 
+{
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+}); // Adicionar suporte a controllers
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -14,6 +17,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
                 "http://localhost:3000",    // Para desenvolvimento local
+                "http://127.0.0.1:5500",    // Live Server
+                "http://localhost:5500",    // Live Server (alternativo)
                 "file://",                  // Para arquivos HTML locais
                 "null"                      // Para arquivos abertos diretamente
             )
