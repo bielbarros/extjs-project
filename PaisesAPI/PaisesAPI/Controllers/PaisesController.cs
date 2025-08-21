@@ -31,6 +31,8 @@ namespace PaisesAPI.Controllers
         [HttpPost]
         public ActionResult<Pais> Post([FromBody] Pais pais)
         {
+            Console.WriteLine($"POST recebido: Nome={pais?.Nome}, Sigla={pais?.Sigla}, CodigoBacen={pais?.CodigoBacen}, Ativo={pais?.Ativo}");
+            
             if (pais == null)
             {
                 return BadRequest("Dados do país não podem ser nulos.");
