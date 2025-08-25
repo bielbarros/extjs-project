@@ -6,7 +6,7 @@ namespace PaisesAPI.Models
         public string Nome { get; set; }
         public string Sigla { get; set; }        // alpha-2 (ex.: BR)
         public string CodigoBacen { get; set; }  // 3 digitos (ex.: 076)
-        public bool Ativo { get; set; } = true;
+        public string Ativo { get; set; } = "Sim"; // Sim = Ativo, Não = Inativo
 
         // Propriedades de navegação - definem os relacionamentos
         // Um País pode ter várias UFs (relacionamento 1:N)

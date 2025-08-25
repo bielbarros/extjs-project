@@ -15,7 +15,7 @@ namespace PaisesAPI.Models
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
         public string Observacao { get; set; }
-        public bool Ativo { get; set; } = true;
+        public string Ativo { get; set; } = "Sim"; // Sim = Ativo, Não = Inativo
 
         // Propriedades de navegação
         // Um Município pertence a um País (relacionamento N:1)

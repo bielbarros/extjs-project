@@ -128,7 +128,7 @@ namespace PaisesAPI.Data
                 EndLogradouro = "Av. Paulista",
                 EndNumero = "1000",
                 EndBairro = "Bela Vista",
-                Ativo = true
+                Ativo = "Sim"
             });
         }
 

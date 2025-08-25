@@ -30,7 +30,7 @@ namespace PaisesAPI.Models
         public decimal? EndLatitude { get; set; }
         public decimal? EndLongitude { get; set; }
 
-        public bool Ativo { get; set; } = true;
+        public string Ativo { get; set; } = "Sim"; // Sim = Ativo, Não = Inativo
 
         // Propriedades de navegação
         // Uma Pessoa pode ter um País de endereço (relacionamento N:1)

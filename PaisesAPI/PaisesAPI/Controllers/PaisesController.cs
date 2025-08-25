@@ -199,7 +199,7 @@ namespace PaisesAPI.Controllers
         [HttpGet("ativos")]
         public async Task<ActionResult<IEnumerable<Pais>>> GetAtivos()
         {
-            var paisesAtivos = await _context.Paises.Where(p => p.Ativo).ToListAsync();
+            var paisesAtivos = await _context.Paises.Where(p => p.Ativo == "Sim").ToListAsync();
             return Ok(paisesAtivos);
         }
 

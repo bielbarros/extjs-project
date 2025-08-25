@@ -32,6 +32,7 @@ namespace PaisesAPI.Data
                 entity.Property(e => e.Nome).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Sigla).IsRequired().HasMaxLength(2);
                 entity.Property(e => e.CodigoBacen).IsRequired().HasMaxLength(3);
+                entity.Property(e => e.Ativo).IsRequired().HasMaxLength(3).HasDefaultValue("Sim");
                 
                 // Índices para melhor performance
                 entity.HasIndex(e => e.Sigla).IsUnique();
@@ -45,8 +46,9 @@ namespace PaisesAPI.Data
                 entity.Property(e => e.Nome).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Sigla).IsRequired().HasMaxLength(2);
                 entity.Property(e => e.CodigoIbge).IsRequired().HasMaxLength(2);
-                entity.Property(e => e.Regiao).HasMaxLength(50);
-                entity.Property(e => e.Capital).HasMaxLength(100);
+                entity.Property(e => e.Regiao).HasMaxLength(50).IsRequired(false);
+                entity.Property(e => e.Capital).HasMaxLength(100).IsRequired(false);
+                entity.Property(e => e.Ativo).IsRequired().HasMaxLength(3).HasDefaultValue("Sim");
 
                 // Relacionamento com Pais
                 entity.HasOne(e => e.Pais)
@@ -65,10 +67,11 @@ namespace PaisesAPI.Data
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Nome).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.CodigoIbge).IsRequired().HasMaxLength(7);
-                entity.Property(e => e.CepInicial).HasMaxLength(8);
-                entity.Property(e => e.CepFinal).HasMaxLength(8);
-                entity.Property(e => e.Timezone).HasMaxLength(50);
-                entity.Property(e => e.Observacao).HasMaxLength(500);
+                entity.Property(e => e.CepInicial).HasMaxLength(8).IsRequired(false);
+                entity.Property(e => e.CepFinal).HasMaxLength(8).IsRequired(false);
+                entity.Property(e => e.Timezone).HasMaxLength(50).IsRequired(false);
+                entity.Property(e => e.Observacao).HasMaxLength(500).IsRequired(false);
+                entity.Property(e => e.Ativo).IsRequired().HasMaxLength(3).HasDefaultValue("Sim");
 
                 // Relacionamentos
                 entity.HasOne(e => e.Pais)
@@ -93,18 +96,19 @@ namespace PaisesAPI.Data
                 entity.Property(e => e.PrimeiroNome).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Sobrenome).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Cpf).IsRequired().HasMaxLength(11);
-                entity.Property(e => e.Rg).HasMaxLength(20);
-                entity.Property(e => e.Nacionalidade).HasMaxLength(50);
-                entity.Property(e => e.Email).HasMaxLength(100);
-                entity.Property(e => e.Telefone).HasMaxLength(20);
-                entity.Property(e => e.Celular).HasMaxLength(20);
-                entity.Property(e => e.EndMunicipio).HasMaxLength(100);
-                entity.Property(e => e.EndCep).HasMaxLength(8);
-                entity.Property(e => e.EndLogradouro).HasMaxLength(200);
-                entity.Property(e => e.EndNumero).HasMaxLength(10);
-                entity.Property(e => e.EndBairro).HasMaxLength(100);
-                entity.Property(e => e.EndComplemento).HasMaxLength(100);
-                entity.Property(e => e.EndReferencia).HasMaxLength(200);
+                entity.Property(e => e.Rg).HasMaxLength(20).IsRequired(false);
+                entity.Property(e => e.Nacionalidade).HasMaxLength(50).IsRequired(false);
+                entity.Property(e => e.Email).HasMaxLength(100).IsRequired(false);
+                entity.Property(e => e.Telefone).HasMaxLength(20).IsRequired(false);
+                entity.Property(e => e.Celular).HasMaxLength(20).IsRequired(false);
+                entity.Property(e => e.EndMunicipio).HasMaxLength(100).IsRequired(false);
+                entity.Property(e => e.EndCep).HasMaxLength(9).IsRequired(false);
+                entity.Property(e => e.EndLogradouro).HasMaxLength(200).IsRequired(false);
+                entity.Property(e => e.EndNumero).HasMaxLength(10).IsRequired(false);
+                entity.Property(e => e.EndBairro).HasMaxLength(100).IsRequired(false);
+                entity.Property(e => e.EndComplemento).HasMaxLength(100).IsRequired(false);
+                entity.Property(e => e.EndReferencia).HasMaxLength(200).IsRequired(false);
+                entity.Property(e => e.Ativo).IsRequired().HasMaxLength(3).HasDefaultValue("Sim");
 
                 // Relacionamentos de endereço (opcionais)
                 entity.HasOne(e => e.EndPais)

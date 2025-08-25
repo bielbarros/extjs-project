@@ -72,7 +72,7 @@ Ext.onReady(function(){
                 width: 80,
                 sortable: true,
                 renderer: function(value) {
-                    return value ? 'Sim' : 'Não';
+                    return value === 'Sim' ? 'Sim' : 'Não';
                 }
             }
         ],
@@ -155,7 +155,7 @@ Ext.onReady(function(){
                                 nome: values.nome,
                                 sigla: values.sigla,
                                 codigoBacen: values.codigoBacen.toString(),
-                                ativo: values.ativo === 'on' || values.ativo === true
+                                ativo: (values.ativo === 'on' || values.ativo === true) ? 'Sim' : 'Não'
                             };
                             console.log('Dados sendo enviados (POST):', dadosEnviados);
                             
@@ -184,7 +184,7 @@ Ext.onReady(function(){
                                 nome: values.nome,
                                 sigla: values.sigla,
                                 codigoBacen: values.codigoBacen.toString(),
-                                ativo: values.ativo === 'on' || values.ativo === true
+                                ativo: (values.ativo === 'on' || values.ativo === true) ? 'Sim' : 'Não'
                             };
                             console.log('Dados sendo enviados (PUT):', dadosEnviados);
                             
@@ -264,7 +264,7 @@ Ext.onReady(function(){
                     nome: selection.get('nome'),
                     sigla: selection.get('sigla'),
                     codigoBacen: selection.get('codigoBacen'),
-                    ativo: selection.get('ativo')
+                    ativo: selection.get('ativo') === 'Sim'
                 });
                 
                 janela.show();

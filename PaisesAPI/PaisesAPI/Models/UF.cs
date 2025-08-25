@@ -9,7 +9,7 @@ namespace PaisesAPI.Models
         public string CodigoIbge { get; set; }   // 2 digitos
         public string Regiao { get; set; }       // Norte, Nordeste, Centro-Oeste, Sudeste, Sul
         public string Capital { get; set; }
-        public bool Ativo { get; set; } = true;
+        public string Ativo { get; set; } = "Sim"; // Sim = Ativo, Não = Inativo
 
         // Propriedades de navegação
         // Uma UF pertence a um País (relacionamento N:1)
