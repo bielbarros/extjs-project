@@ -121,38 +121,41 @@ Ext.onReady(function(){
         defaults: {width: 275},
         defaultType: 'textfield',
 
-        items: [{
-                fieldLabel: 'País',
-                name: 'pais',
-                allowBlank:false,
-                xtype: 'combo',
-                store: new Ext.data.ArrayStore({
-                    fields: ['id', 'nome'],
-                    data: [
-                        [1, 'Brasil'],
-                        [2, 'United States'],
-                        [3, 'Argentina'],
-                        [4, 'Uruguay'],
-                        [5, 'Paraguay'],
-                        [6, 'Chile'],
-                        [7, 'Bolivia'],
-                        [8, 'Peru'],
-                        [9, 'Colombia'],
-                        [10, 'Venezuela'],
-                        [11, 'Mexico'],
-                        [12, 'Canada'], 
-                        [13, 'Portugal'],
-                        [14, 'Spain'],
-                        [15, 'France'],
-                    ]
-                }),
-                displayField: 'nome',
-                valueField: 'id',
-                editable: false,
-                mode: 'local',
-                forceSelection: true,
-                triggerAction: 'all',
-            },{
+        items: [             {
+                 fieldLabel: 'País',
+                 name: 'pais',
+                 allowBlank: false,
+                 blankText: 'País é obrigatório',
+                 xtype: 'combo',
+                 store: new Ext.data.ArrayStore({
+                     fields: ['Id', 'Nome', 'Sigla'],
+                     data: []
+                 }),
+                 displayField: 'Nome',
+                 valueField: 'Id',
+                 editable: false,
+                 mode: 'local',
+                 forceSelection: true,
+                 triggerAction: 'all',
+                 listWidth: 250,
+                 tpl: '<tpl for="."><div class="x-combo-list-item">{Nome} ({Sigla})</div></tpl>',
+                 listeners: {
+                     afterrender: function(combo) {
+                         Ext.Ajax.request({
+                             url: 'http://localhost:5111/api/paises',
+                             method: 'GET',
+                             success: function(response) {
+                                 var data = Ext.decode(response.responseText);
+                                 combo.store.loadData(data);
+                             },
+                             failure: function(response) {
+                                 console.error('Erro ao carregar países da API:', response);
+                                 Ext.Msg.alert('Erro', 'Não foi possível carregar os países da API.');
+                             }
+                         });
+                     }
+                 }
+             },{
                 fieldLabel: 'Nome',
                 name: 'nome'
             },
@@ -271,38 +274,43 @@ Ext.onReady(function() {
             items: [{
                 columnWidth: .5,
                 layout: 'form',
-                items: [{
-                    fieldLabel: 'País',
-                    name: 'pais',
-                    anchor: '95%',
-                    xtype: 'combo',
-                    store: new Ext.data.ArrayStore({
-                        fields: ['id', 'nome'],
-                        data: [
-                            [1, 'Brasil'],
-                            [2, 'United States'],
-                            [3, 'Argentina'],
-                            [4, 'Uruguay'],
-                            [5, 'Paraguay'],
-                            [6, 'Chile'],
-                            [7, 'Bolivia'],
-                            [8, 'Peru'],
-                            [9, 'Colombia'],
-                            [10, 'Venezuela'],
-                            [11, 'Mexico'],
-                            [12, 'Canada'],
-                            [13, 'Portugal'],
-                            [14, 'Spain'],
-                            [15, 'France'],
-                        ]
-                    }),
-                    displayField: 'nome',
-                    valueField: 'id',
-                    width: 150,
-                    mode: 'local',
-                    forceSelection: true,
-                    triggerAction: 'all',
-                }]
+                                 items: [{
+                     fieldLabel: 'País',
+                     name: 'pais',
+                     anchor: '95%',
+                     allowBlank: false,
+                     blankText: 'País é obrigatório',
+                     xtype: 'combo',
+                     store: new Ext.data.ArrayStore({
+                         fields: ['Id', 'Nome', 'Sigla'],
+                         data: []
+                     }),
+                     displayField: 'Nome',
+                     valueField: 'Id',
+                     width: 150,
+                     editable: false,
+                     mode: 'local',
+                     forceSelection: true,
+                     triggerAction: 'all',
+                     listWidth: 250,
+                     tpl: '<tpl for="."><div class="x-combo-list-item">{Nome} ({Sigla})</div></tpl>',
+                     listeners: {
+                         afterrender: function(combo) {
+                             Ext.Ajax.request({
+                                 url: 'http://localhost:5111/api/paises',
+                                 method: 'GET',
+                                 success: function(response) {
+                                     var data = Ext.decode(response.responseText);
+                                     combo.store.loadData(data);
+                                 },
+                                 failure: function(response) {
+                                     console.error('Erro ao carregar países da API:', response);
+                                     Ext.Msg.alert('Erro', 'Não foi possível carregar os países da API.');
+                                 }
+                             });
+                         }
+                     }
+                 }]
             }, {
                 columnWidth: .5,
                 layout: 'form',
@@ -644,11 +652,35 @@ Ext.onReady(function () {
                         layout: 'column',
                         defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
                         items: [
-                            { columnWidth: .30, items: [{
-                                xtype: 'combo', fieldLabel: 'País', name: 'pais',
-                                mode: 'local', triggerAction: 'all', editable: false,
-                                store: ['Brasil','Argentina','EUA'], anchor: '90%'
-                            }]},
+                                                         { columnWidth: .30, items: [{
+                                 xtype: 'combo', fieldLabel: 'País', name: 'pais',
+                                 mode: 'local', triggerAction: 'all', editable: false,
+                                 store: new Ext.data.ArrayStore({
+                                     fields: ['Id', 'Nome', 'Sigla'],
+                                     data: []
+                                 }),
+                                 displayField: 'Nome',
+                                 valueField: 'Id',
+                                 listWidth: 200,
+                                 tpl: '<tpl for="."><div class="x-combo-list-item">{Nome} ({Sigla})</div></tpl>',
+                                 anchor: '90%',
+                                 listeners: {
+                                     afterrender: function(combo) {
+                                         Ext.Ajax.request({
+                                             url: 'http://localhost:5111/api/paises',
+                                             method: 'GET',
+                                             success: function(response) {
+                                                 var data = Ext.decode(response.responseText);
+                                                 combo.store.loadData(data);
+                                             },
+                                             failure: function(response) {
+                                                 console.error('Erro ao carregar países da API:', response);
+                                                 Ext.Msg.alert('Erro', 'Não foi possível carregar os países da API.');
+                                             }
+                                         });
+                                     }
+                                 }
+                             }]},
                             { columnWidth: .30, items: [{
                                 xtype: 'combo', fieldLabel: 'UF', name: 'uf',
                                 mode: 'local', triggerAction: 'all', editable: false,
@@ -706,12 +738,8 @@ Ext.onReady(function () {
                 if (formPanel.isValid()) {
                     var values = formPanel.getValues();
                     
-                    // Mapear países e UFs de string para ID
-                    var paises = {
-                        'Brasil': 1,
-                        'Argentina': 3,
-                        'EUA': 2
-                    };
+                                         // O país já vem como ID do combo
+                     var paisId = values.pais;
                     
                     var ufs = {
                         'AC': 27, 'AL': 15, 'AM': 24, 'AP': 23, 'BA': 13, 'CE': 19, 'DF': 11, 'ES': 4, 'GO': 10, 'MA': 21, 'MG': 3, 'MS': 8, 'MT': 7, 'PA': 22, 'PB': 17, 'PE': 16, 'PI': 20, 'PR': 6, 'RJ': 2, 'RN': 18, 'RO': 26, 'RR': 25, 'RS': 5, 'SC': 9, 'SE': 14, 'SP': 1, 'TO': 12
@@ -729,7 +757,7 @@ Ext.onReady(function () {
                         email: values.email,
                         telefone: values.telefone,
                         celular: values.celular,
-                        endPaisId: paises[values.pais] || null,
+                                                 endPaisId: paisId || null,
                         endUfId: ufs[values.uf] || null,
                         endMunicipio: values.municipio,
                         endCep: values.cep,
@@ -794,11 +822,11 @@ Ext.onReady(function () {
 Ext.onReady(function(){
     var statusElement = document.getElementById('status');
     // Store para a grid - Conectado com API C#
-    var store = new Ext.data.JsonStore({
-        url: 'http://localhost:5111/api/paises',
-        root: '',
-        fields: ['id', 'nome', 'sigla', 'codigoBacen', 'ativo'],
-        autoLoad: true,
+         var store = new Ext.data.JsonStore({
+         url: 'http://localhost:5111/api/paises',
+         root: '',
+         fields: ['id', 'nome', 'sigla', 'codigoBacen', 'ativo'],
+         autoLoad: true,
         listeners: {
             load: function(store, records, options) {
                 console.log('Dados carregados da API:', records.length, 'registros');
@@ -822,17 +850,17 @@ Ext.onReady(function(){
                 var valor = field.getValue().toLowerCase();
                 store.clearFilter();
                 
-                if (valor.length > 0) {
-                    store.filterBy(function(record) {
-                        var nome = record.get('nome').toLowerCase();
-                        var sigla = record.get('sigla').toLowerCase();
-                        var codigo = record.get('codigoBacen').toString();
-                        
-                        return nome.indexOf(valor) !== -1 || 
-                               sigla.indexOf(valor) !== -1 || 
-                               codigo.indexOf(valor) !== -1;
-                    });
-                }
+                                 if (valor.length > 0) {
+                     store.filterBy(function(record) {
+                         var nome = record.get('nome').toLowerCase();
+                         var sigla = record.get('sigla').toLowerCase();
+                         var codigo = record.get('codigoBacen').toString();
+                         
+                         return nome.indexOf(valor) !== -1 || 
+                                sigla.indexOf(valor) !== -1 || 
+                                codigo.indexOf(valor) !== -1;
+                     });
+                 }
             }
         }
     });
@@ -840,35 +868,35 @@ Ext.onReady(function(){
     // Grid simples
     var grid = new Ext.grid.GridPanel({
         store: store,
-        columns: [
-            {
-                header: 'Nome',
-                dataIndex: 'nome',
-                width: 200,
-                sortable: true
-            },
-            {
-                header: 'Sigla',
-                dataIndex: 'sigla',
-                width: 100,
-                sortable: true
-            },
-            {
-                header: 'Código BACEN',
-                dataIndex: 'codigoBacen',
-                width: 120,
-                sortable: true
-            },
-            {
-                header: 'Ativo',
-                dataIndex: 'ativo',
-                width: 80,
-                sortable: true,
-                renderer: function(value) {
-                    return value === 'Sim' ? 'Sim' : 'Não';
-                }
-            }
-        ],
+                 columns: [
+             {
+                 header: 'Nome',
+                 dataIndex: 'nome',
+                 width: 200,
+                 sortable: true
+             },
+             {
+                 header: 'Sigla',
+                 dataIndex: 'sigla',
+                 width: 100,
+                 sortable: true
+             },
+             {
+                 header: 'Código BACEN',
+                 dataIndex: 'codigoBacen',
+                 width: 120,
+                 sortable: true
+             },
+             {
+                 header: 'Ativo',
+                 dataIndex: 'ativo',
+                 width: 80,
+                 sortable: true,
+                 renderer: function(value) {
+                     return value === 'Sim' ? 'Sim' : 'Não';
+                 }
+             }
+         ],
         stripeRows: true,
         height: 350,
         width: 502
@@ -1051,14 +1079,14 @@ Ext.onReady(function(){
                 janela.recordEditando = selection;
                 janela.setTitle('Editar País');
                 
-                // Preencher o formulário com os dados selecionados
-                var form = janela.items.get(0).getForm();
-                form.setValues({
-                    nome: selection.get('nome'),
-                    sigla: selection.get('sigla'),
-                    codigoBacen: selection.get('codigoBacen'),
-                    ativo: selection.get('ativo') === 'Sim'
-                });
+                                 // Preencher o formulário com os dados selecionados
+                 var form = janela.items.get(0).getForm();
+                 form.setValues({
+                     nome: selection.get('nome'),
+                     sigla: selection.get('sigla'),
+                     codigoBacen: selection.get('codigoBacen'),
+                     ativo: selection.get('ativo') === 'Sim'
+                 });
                 
                 janela.show();
             }
@@ -1074,9 +1102,9 @@ Ext.onReady(function(){
                     return;
                 }
                 
-                if (confirm('Tem certeza que deseja excluir o país "' + selection.get('nome') + '"?')) {
-                    Ext.Ajax.request({
-                        url: 'http://localhost:5111/api/paises/' + selection.get('id'),
+                                 if (confirm('Tem certeza que deseja excluir o país "' + selection.get('nome') + '"?')) {
+                     Ext.Ajax.request({
+                         url: 'http://localhost:5111/api/paises/' + selection.get('id'),
                         method: 'DELETE',
                         success: function(response) {
                             store.reload();
