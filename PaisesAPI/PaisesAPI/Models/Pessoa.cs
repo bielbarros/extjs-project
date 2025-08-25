@@ -31,5 +31,12 @@ namespace PaisesAPI.Models
         public decimal? EndLongitude { get; set; }
 
         public bool Ativo { get; set; } = true;
+
+        // Propriedades de navegação
+        // Uma Pessoa pode ter um País de endereço (relacionamento N:1)
+        public virtual Pais? EndPais { get; set; }
+        
+        // Uma Pessoa pode ter uma UF de endereço (relacionamento N:1)
+        public virtual UF? EndUF { get; set; }
     }
 }

@@ -9,6 +9,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.19" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <!-- Entity Framework Core - Core do ORM -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.19" />
+    <!-- Entity Framework Core SQL Server - Provedor para SQL Server -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.19" />
+    <!-- Entity Framework Core Tools - Para comandos de migração e scaffolding -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.19" />
+    <!-- Entity Framework Core Design - Para design-time tools (migrações) -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.19" />
   </ItemGroup>
 
 </Project>

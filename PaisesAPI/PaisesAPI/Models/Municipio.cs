@@ -16,5 +16,12 @@ namespace PaisesAPI.Models
         public decimal? Longitude { get; set; }
         public string Observacao { get; set; }
         public bool Ativo { get; set; } = true;
+
+        // Propriedades de navegação
+        // Um Município pertence a um País (relacionamento N:1)
+        public virtual Pais Pais { get; set; }
+        
+        // Um Município pertence a uma UF (relacionamento N:1)
+        public virtual UF UF { get; set; }
     }
 }

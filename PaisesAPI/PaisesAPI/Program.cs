@@ -1,4 +1,5 @@
 using PaisesAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,10 @@ builder.Services.AddControllers(options =>
 }); // Adicionar suporte a controllers
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configurar Entity Framework
+builder.Services.AddDbContext<PaisesDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configurar CORS para permitir requisições do ExtJS
 builder.Services.AddCors(options =>
@@ -45,14 +50,23 @@ app.UseHttpsRedirection();
 // Mapear controllers
 app.MapControllers();
 
-// Inicializar dados de exemplo
-DbMem.SeedBrasilBasico();
+// Garantir que o banco de dados seja criado e populado com dados iniciais
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<PaisesDbContext>();
+    
+    // Criar o banco de dados se não existir
+    context.Database.EnsureCreated();
+    
+    // Verificar se já existem dados
+    if (!context.Paises.Any())
+    {
+        // Inicializar dados de exemplo
+        SeedData.Initialize(context);
+    }
+}
 
 Console.WriteLine("🚀 API de Países iniciada com sucesso!");
-Console.WriteLine("📊 Dados iniciais carregados:");
-Console.WriteLine($"   - Países: {DbMem.Paises.Count}");
-Console.WriteLine($"   - UFs: {DbMem.UFs.Count}");
-Console.WriteLine($"   - Municípios: {DbMem.Municipios.Count}");
-Console.WriteLine($"   - Pessoas: {DbMem.Pessoas.Count}");
+Console.WriteLine("📊 Banco de dados configurado com Entity Framework!");
 
 app.Run();
