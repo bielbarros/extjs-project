@@ -1,3 +1,725 @@
+// tela 1 - Cadastro de País
+/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+Ext.onReady(function(){
+
+    Ext.QuickTips.init();
+
+    Ext.form.Field.prototype.msgTarget = 'side';
+
+
+    var simple = new Ext.FormPanel({
+        labelWidth: 100,
+        url:'save-form.php',
+        frame:true,
+        title: 'Cadastro de País',
+        width: 400,
+        defaults: {width: 275},
+        defaultType: 'textfield',
+
+        items: [{
+                fieldLabel: 'Nome',
+                name: 'nome',
+                allowBlank:false
+            },{
+                fieldLabel: 'Sigla',
+                name: 'sigla'
+            },
+            {
+                fieldLabel: 'Código BACEN',
+                name: 'codigoBacen',
+                vtype:'number'
+            },
+            {
+                fieldLabel: 'Ativo',
+                name: 'ativo',
+                xtype: 'checkbox',
+                checked: true
+            }
+        ],
+
+        buttons: [{
+            text: 'Salvar',
+            handler: function() {
+                var form = simple.getForm();
+                if (form.isValid()) {
+                    var values = form.getValues();
+                    var dadosEnviados = {
+                        nome: values.nome,
+                        sigla: values.sigla,
+                        codigoBacen: values.codigoBacen.toString(),
+                        ativo: (values.ativo === 'on' || values.ativo === true) ? 'Sim' : 'Não'
+                    };
+                    
+                    Ext.Ajax.request({
+                        url: 'http://localhost:5111/api/paises',
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        jsonData: dadosEnviados,
+                        success: function(response) {
+                            form.reset();
+                            Ext.Msg.alert('Sucesso', 'País criado com sucesso!');
+                        },
+                        failure: function(response) {
+                            var error = Ext.decode(response.responseText);
+                            Ext.Msg.alert('Erro', error || 'Erro ao criar país');
+                        }
+                    });
+                }
+            }
+        },{
+            text: 'Cancelar',
+            handler: function() {
+                simple.getForm().reset();
+            }
+        }]
+    });
+
+    simple.render(document.body);
+
+});
+
+
+
+
+// tela 2 - Cadastro de UF
+
+/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+Ext.onReady(function(){
+
+    Ext.QuickTips.init();
+
+    Ext.form.Field.prototype.msgTarget = 'side';
+
+
+    var simple = new Ext.FormPanel({
+        labelWidth: 100,
+        url:'save-form.php',
+        frame:true,
+        title: 'Cadastro de UF',
+        width: 400,
+        defaults: {width: 275},
+        defaultType: 'textfield',
+
+        items: [{
+                fieldLabel: 'País',
+                name: 'pais',
+                allowBlank:false,
+                xtype: 'combo',
+                store: new Ext.data.ArrayStore({
+                    fields: ['id', 'nome'],
+                    data: [
+                        [1, 'Brasil'],
+                        [2, 'United States'],
+                        [3, 'Argentina'],
+                        [4, 'Uruguay'],
+                        [5, 'Paraguay'],
+                        [6, 'Chile'],
+                        [7, 'Bolivia'],
+                        [8, 'Peru'],
+                        [9, 'Colombia'],
+                        [10, 'Venezuela'],
+                        [11, 'Mexico'],
+                        [12, 'Canada'], 
+                        [13, 'Portugal'],
+                        [14, 'Spain'],
+                        [15, 'France'],
+                    ]
+                }),
+                displayField: 'nome',
+                valueField: 'id',
+                editable: false,
+                mode: 'local',
+                forceSelection: true,
+                triggerAction: 'all',
+            },{
+                fieldLabel: 'Nome',
+                name: 'nome'
+            },
+            {
+                fieldLabel: 'Sigla',
+                name: 'sigla'
+            },
+            {
+                fieldLabel: 'Código IBGE',
+                name: 'codigo_ibge',
+                vtype:'number'
+            },
+            {
+                fieldLabel: 'Região',
+                name: 'regiao',
+                xtype: 'combo',
+                store: new Ext.data.ArrayStore({
+                    fields: ['id', 'nome'],
+                    data: [
+                        [1, 'Norte'],
+                        [2, 'Nordeste'],
+                        [3, 'Centro-Oeste'],
+                        [4, 'Sudeste'],
+                        [5, 'Sul'],
+                    ]
+                }),
+                displayField: 'nome',
+                valueField: 'id',
+                editable: false,
+                mode: 'local',
+                forceSelection: true,
+                triggerAction: 'all',
+            },
+            {
+                fieldLabel: 'Capital',
+                name: 'capital'
+            },
+            {
+                fieldLabel: 'Ativo',
+                name: 'ativo',
+                xtype: 'checkbox'
+            }
+        ],
+
+        buttons: [{
+            text: 'Salvar',
+            handler: function() {
+                var form = simple.getForm();
+                if (form.isValid()) {
+                    var values = form.getValues();
+                    var dadosEnviados = {
+                        paisId: values.pais,
+                        nome: values.nome,
+                        sigla: values.sigla,
+                        codigoIbge: values.codigo_ibge.toString(),
+                        regiao: values.regiao,
+                        capital: values.capital,
+                        ativo: (values.ativo === 'on' || values.ativo === true) ? 'Sim' : 'Não'
+                    };
+                    
+                    Ext.Ajax.request({
+                        url: 'http://localhost:5111/api/ufs',
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        jsonData: dadosEnviados,
+                        success: function(response) {
+                            form.reset();
+                            Ext.Msg.alert('Sucesso', 'UF criada com sucesso!');
+                        },
+                        failure: function(response) {
+                            var error = Ext.decode(response.responseText);
+                            Ext.Msg.alert('Erro', error || 'Erro ao criar UF');
+                        }
+                    });
+                }
+            }
+        },{
+            text: 'Cancelar',
+            handler: function() {
+                simple.getForm().reset();
+            }
+        }]
+    });
+
+    simple.render(document.body);
+
+});
+
+
+// tela 3 - Cadastro de município
+
+Ext.onReady(function() {
+
+    var top = new Ext.FormPanel({
+        frame: true,
+        title: 'Cadastro de Município',
+        bodyStyle: 'padding:5px 5px 0',
+        width: 800,
+        items: [{
+            layout: 'column',
+            items: [{
+                columnWidth: .5,
+                layout: 'form',
+                items: [{
+                    fieldLabel: 'País',
+                    name: 'pais',
+                    anchor: '95%',
+                    xtype: 'combo',
+                    store: new Ext.data.ArrayStore({
+                        fields: ['id', 'nome'],
+                        data: [
+                            [1, 'Brasil'],
+                            [2, 'United States'],
+                            [3, 'Argentina'],
+                            [4, 'Uruguay'],
+                            [5, 'Paraguay'],
+                            [6, 'Chile'],
+                            [7, 'Bolivia'],
+                            [8, 'Peru'],
+                            [9, 'Colombia'],
+                            [10, 'Venezuela'],
+                            [11, 'Mexico'],
+                            [12, 'Canada'],
+                            [13, 'Portugal'],
+                            [14, 'Spain'],
+                            [15, 'France'],
+                        ]
+                    }),
+                    displayField: 'nome',
+                    valueField: 'id',
+                    width: 150,
+                    mode: 'local',
+                    forceSelection: true,
+                    triggerAction: 'all',
+                }]
+            }, {
+                columnWidth: .5,
+                layout: 'form',
+                items: [{
+                    fieldLabel: 'UF',
+                    name: 'uf',
+                    anchor: '95%',
+                    allowBlank: false,
+                    xtype: 'combo',
+                    width: 300,
+                    store: new Ext.data.ArrayStore({
+                        fields: ['id', 'nome'],
+                        data: [
+                            [1, 'SP'],
+                            [2, 'RJ'],
+                            [3, 'MG'],
+                            [4, 'ES'],
+                            [5, 'RS'],
+                            [6, 'PR'],
+                            [7, 'MT'],
+                            [8, 'MS'],
+                            [9, 'SC'],
+                            [10, 'GO'],
+                            [11, 'DF'],
+                            [12, 'TO'],
+                            [13, 'BA'],
+                            [14, 'SE'],
+                            [15, 'AL'],
+                            [16, 'PE'],
+                            [17, 'PB'],
+                            [18, 'RN'],
+                            [19, 'CE'],
+                            [20, 'PI'],
+                            [21, 'MA'],
+                            [22, 'PA'],
+                            [23, 'AP'],
+                            [24, 'AM'],
+                            [25, 'RR'],
+                            [26, 'RO'],
+                            [27, 'AC']
+                        ]
+                    }),
+                    displayField: 'nome',
+                    valueField: 'id',
+                    editable: false,
+                    mode: 'local',
+                    forceSelection: true,
+                    triggerAction: 'all',
+                }]
+            }]
+        }, {
+            fieldLabel: 'Nome',
+            name: 'nome',
+            anchor: '97.5%',
+            xtype: 'textfield',
+        },
+        {
+            layout: 'column',
+            items: [{
+                columnWidth: 0.33,
+                layout: 'form',
+                items: [{
+                    fieldLabel: 'Código IBGE',
+                    name: 'codigo_ibge',
+                    xtype: 'numberfield',
+                }]
+            }, {
+                columnWidth: 0.33,
+                layout: 'form',
+                items: [{
+                    fieldLabel: 'Código SIAFI',
+                    name: 'codigo_siafi',
+                    xtype: 'numberfield',
+                }]
+            }, {
+                columnWidth: 0.33,
+                layout: 'form',
+                items: [{
+                    fieldLabel: 'DDD',
+                    name: 'ddd',
+                    anchor: '96%',
+                    xtype: 'numberfield',
+                }]
+            }, {
+            }]
+        },
+
+        {
+            layout: 'column',
+            items: [{
+                columnWidth: 0.5,
+                layout: 'form',
+                items: [{
+                    fieldLabel: 'CEP Inicial',
+                    name: 'cep_inicial',
+                    anchor: '95%',
+                    xtype: 'numberfield',
+                }]
+            }, {
+                columnWidth: 0.5,
+                layout: 'form',
+                items: [{
+                    fieldLabel: 'CEP Final',
+                    name: 'cep_final',
+                    anchor: '95%',
+                    xtype: 'numberfield',
+                }]
+            }]
+        },
+
+        {
+            fieldLabel: 'Timezone',
+            name: 'timezone',
+            allowBlank:false,
+            anchor: '47.5%',
+            xtype: 'combo',
+            store: new Ext.data.ArrayStore({
+                fields: ['id', 'nome'],
+                data: [
+                    [1, 'America/Sao_Paulo'],
+                    [2, 'America/New_York'],
+                    [3, 'America/Los_Angeles'],
+                    [4, 'America/Chicago'],
+                    [5, 'America/Denver'],
+                    [6, 'America/Phoenix'],
+                    [7, 'America/Houston'],
+                ]
+            }),
+            displayField: 'nome',
+            valueField: 'id',
+            editable: false,
+            mode: 'local',
+            forceSelection: true,
+            triggerAction: 'all',
+        },
+
+        {
+            layout: 'column',
+            items: [{
+                columnWidth: 0.5,
+                layout: 'form',
+                items: [{
+                    fieldLabel: 'Latitude',
+                    name: 'latitude',
+                    anchor: '95%',
+                    xtype: 'numberfield',
+                }]
+            }, {
+                columnWidth: 0.5,
+                layout: 'form',
+                items: [{
+                    fieldLabel: 'Longitude',
+                    name: 'longitude',
+                    anchor: '95%',
+                    xtype: 'numberfield',
+                }]
+            }]
+        },
+
+        {
+            fieldLabel: 'Observação',
+            name: 'observacao',
+            xtype: 'textarea',
+            width: 653,
+            height: 100,
+        },
+
+        {
+            fieldLabel: 'Ativo',
+            name: 'ativo',
+            xtype: 'checkbox',
+        },
+        ],
+
+        buttons: [{
+            text: 'Salvar',
+            handler: function() {
+                var form = top.getForm();
+                if (form.isValid()) {
+                    var values = form.getValues();
+                    var dadosEnviados = {
+                        paisId: values.pais,
+                        ufId: values.uf,
+                        nome: values.nome,
+                        codigoIbge: values.codigo_ibge.toString(),
+                        codigoSiafi: values.codigo_siafi,
+                        ddd: values.ddd,
+                        cepInicial: values.cep_inicial,
+                        cepFinal: values.cep_final,
+                        timezone: values.timezone,
+                        latitude: values.latitude,
+                        longitude: values.longitude,
+                        observacao: values.observacao,
+                        ativo: (values.ativo === 'on' || values.ativo === true) ? 'Sim' : 'Não'
+                    };
+                    
+                    Ext.Ajax.request({
+                        url: 'http://localhost:5111/api/municipios',
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        jsonData: dadosEnviados,
+                        success: function(response) {
+                            form.reset();
+                            Ext.Msg.alert('Sucesso', 'Município criado com sucesso!');
+                        },
+                        failure: function(response) {
+                            var error = Ext.decode(response.responseText);
+                            Ext.Msg.alert('Erro', error || 'Erro ao criar município');
+                        }
+                    });
+                }
+            }
+        }, {
+            text: 'Cancelar',
+            handler: function() {
+                top.getForm().reset();
+            }
+        }]
+    });
+
+    top.render(document.body);
+});
+
+
+
+// tela 4 - Cadastro de pessoa
+
+Ext.onReady(function () {
+    Ext.QuickTips.init();
+
+    var form = new Ext.form.FormPanel({
+        renderTo: Ext.getBody(),
+        title: 'Cadastro de Pessoa',
+        frame: true,
+        width: 1000,
+        labelWidth: 110,
+        bodyStyle: 'padding:8px',
+        
+
+        items: [
+            
+            {
+                xtype: 'fieldset',
+                title: 'Pessoa',
+                defaults: { border: false }
+            ,
+                items: [
+                    
+                    {
+                        layout: 'column',
+                        defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
+                        items: [
+                            { columnWidth: .50, items: [{ xtype: 'textfield', fieldLabel: 'Primeiro nome', name: 'primeiroNome', anchor: '90%' }]},
+                            { columnWidth: .50, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Sobrenome', name: 'sobrenome', anchor: '97.5%' }]}
+                        ]
+                    },
+                    
+                    {
+                        layout: 'column',
+                        defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
+                        items: [
+                            { columnWidth: .28, items: [{ xtype: 'datefield', fieldLabel: 'Data nascimento', format: 'd/m/Y', name: 'dataNascimento', anchor: '85%' }]},
+                            { columnWidth: .22, items: [{
+                                xtype: 'combo', fieldLabel: 'Sexo', name: 'sexo',
+                                mode: 'local', triggerAction: 'all', editable: false,
+                                store: ['Masculino','Feminino'], anchor: '80%'
+                            }]},
+                            { columnWidth: .50, style: '', items: [{
+                                xtype: 'combo', fieldLabel: 'Estado civil', name: 'estadoCivil',
+                                mode: 'local', triggerAction: 'all', editable: false,
+                                store: ['Solteiro','Casado','Divorciado','Viúvo'], anchor: '98%'
+                            }]}
+                        ]
+                    },
+                    
+                    {
+                        layout: 'column',
+                        defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
+                        items: [
+                            { columnWidth: .28, items: [{ xtype: 'textfield', fieldLabel: 'CPF', name: 'cpf', anchor: '85%' }]},
+                            { columnWidth: .28, items: [{ xtype: 'textfield', fieldLabel: 'RG', name: 'rg', anchor: '85%' }]},
+                            { columnWidth: .44, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Nacionalidade', name: 'nacionalidade', anchor: '98%' }]}
+                        ]
+                    },
+                    
+                    {
+                        layout: 'column',
+                        defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
+                        items: [
+                            { columnWidth: .50, items: [{ xtype: 'textfield', fieldLabel: 'Email', vtype: 'email', name: 'email', anchor: '98%' }]},
+                            { columnWidth: .25, items: [{ xtype: 'textfield', fieldLabel: 'Telefone', name: 'telefone', anchor: '90%' }]},
+                            { columnWidth: .25, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Celular', name: 'celular', anchor: '95.5%' }]}
+                        ]
+                    }
+                ]
+            },
+
+            
+            {
+                xtype: 'fieldset',
+                title: 'Endereço',
+                defaults: { border: false },
+                items: [
+                    
+                    {
+                        layout: 'column',
+                        defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
+                        items: [
+                            { columnWidth: .30, items: [{
+                                xtype: 'combo', fieldLabel: 'País', name: 'pais',
+                                mode: 'local', triggerAction: 'all', editable: false,
+                                store: ['Brasil','Argentina','EUA'], anchor: '90%'
+                            }]},
+                            { columnWidth: .30, items: [{
+                                xtype: 'combo', fieldLabel: 'UF', name: 'uf',
+                                mode: 'local', triggerAction: 'all', editable: false,
+                                store: ['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA','MG','MS','MT','PA','PB','PE','PI','PR','RJ','RN','RO','RR','RS','SC','SE','SP','TO'], anchor: '90%'
+                            }]},
+                            { columnWidth: .40, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Município', name: 'municipio', anchor: '95%' }]}
+                        ]
+                    },
+                   
+                    {
+                        layout: 'column',
+                        defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
+                        items: [
+                            { columnWidth: .30, items: [{ xtype: 'textfield', fieldLabel: 'CEP', name: 'cep', anchor: '95%' }]},
+                            { columnWidth: .30, items: [{ xtype: 'textfield', fieldLabel: 'Logradouro', name: 'logradouro', anchor: '95%' }]},
+                            { columnWidth: .40, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Número', name: 'numero', anchor: '95%' }]}
+                        ]
+                    },
+                    
+                    {
+                        layout: 'column',
+                        defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
+                        items: [
+                            { columnWidth: .33, items: [{ xtype: 'textfield', fieldLabel: 'Bairro', name: 'bairro', anchor: '90%' }]},
+                            { columnWidth: .33, items: [{ xtype: 'textfield', fieldLabel: 'Complemento', name: 'complemento', anchor: '90%' }]},
+                            { columnWidth: .34, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Referência', name: 'referencia', anchor: '93%' }]}
+                        ]
+                    },
+                    
+                    {
+                        layout: 'column',
+                        defaults: { layout: 'form', border: false, style: 'padding-right:10px' },
+                        items: [
+                            { columnWidth: .50, items: [{ xtype: 'textfield', fieldLabel: 'Latitude', name: 'latitude', anchor: '95%' }]},
+                            { columnWidth: .50, style: '', items: [{ xtype: 'textfield', fieldLabel: 'Longitude', name: 'longitude', anchor: '95%' }]}
+                        ]
+                    }
+                ]
+            },
+
+            
+            {
+                layout: 'column',
+                border: false,
+                items: [
+                    { columnWidth: .3, layout: 'form', items: [{ xtype: 'checkbox', fieldLabel: 'Ativo', name: 'ativo', checked: true }]},
+                    { columnWidth: .7, border: false }
+                ]
+            }
+        ],
+
+        buttons: [
+            { text: 'Salvar', handler: function () {
+                var formPanel = form.getForm();
+                if (formPanel.isValid()) {
+                    var values = formPanel.getValues();
+                    var dadosEnviados = {
+                        primeiroNome: values.primeiroNome,
+                        sobrenome: values.sobrenome,
+                        nascimento: values.dataNascimento,
+                        sexo: values.sexo,
+                        estadoCivil: values.estadoCivil,
+                        cpf: values.cpf,
+                        rg: values.rg,
+                        nacionalidade: values.nacionalidade,
+                        email: values.email,
+                        telefone: values.telefone,
+                        celular: values.celular,
+                        endPaisId: values.pais,
+                        endUfId: values.uf,
+                        endMunicipio: values.municipio,
+                        endCep: values.cep,
+                        endLogradouro: values.logradouro,
+                        endNumero: values.numero,
+                        endBairro: values.bairro,
+                        endComplemento: values.complemento,
+                        endReferencia: values.referencia,
+                        endLatitude: values.latitude,
+                        endLongitude: values.longitude,
+                        ativo: (values.ativo === 'on' || values.ativo === true) ? 'Sim' : 'Não'
+                    };
+                    
+                    Ext.Ajax.request({
+                        url: 'http://localhost:5111/api/pessoas',
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        jsonData: dadosEnviados,
+                        success: function(response) {
+                            formPanel.reset();
+                            Ext.Msg.alert('Sucesso', 'Pessoa cadastrada com sucesso!');
+                        },
+                        failure: function(response) {
+                            var error = Ext.decode(response.responseText);
+                            Ext.Msg.alert('Erro', error || 'Erro ao cadastrar pessoa');
+                        }
+                    });
+                }
+            }},
+            { text: 'Cancelar', handler: function () { form.getForm().reset(); } }
+        ]
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Ext.onReady(function(){
     var statusElement = document.getElementById('status');
     // Store para a grid - Conectado com API C#
