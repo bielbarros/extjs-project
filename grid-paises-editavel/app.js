@@ -24,16 +24,25 @@ Ext.onReady(function(){
         items: [{
                 fieldLabel: 'Nome',
                 name: 'nome',
-                allowBlank:false
+                allowBlank: false,
+                blankText: 'Nome é obrigatório'
             },{
                 fieldLabel: 'Sigla',
-                name: 'sigla'
+                name: 'sigla',
+                allowBlank: false,
+                blankText: 'Sigla é obrigatória'
             },
-            {
-                fieldLabel: 'Código BACEN',
-                name: 'codigoBacen',
-                vtype:'number'
-            },
+                         {
+                 fieldLabel: 'Código BACEN',
+                 name: 'codigoBacen',
+                 xtype: 'textfield',
+                 allowBlank: false,
+                 blankText: 'Código BACEN é obrigatório',
+                 maxLength: 3,
+                 minLength: 3,
+                 regex: /^\d{3}$/,
+                 regexText: 'Código BACEN deve ter exatamente 3 dígitos'
+             },
             {
                 fieldLabel: 'Ativo',
                 name: 'ativo',
@@ -51,9 +60,11 @@ Ext.onReady(function(){
                     var dadosEnviados = {
                         nome: values.nome,
                         sigla: values.sigla,
-                        codigoBacen: values.codigoBacen.toString(),
+                        codigoBacen: values.codigoBacen ? values.codigoBacen.toString() : '',
                         ativo: (values.ativo === 'on' || values.ativo === true) ? 'Sim' : 'Não'
                     };
+                    
+                    console.log('Dados sendo enviados (Tela 1):', dadosEnviados);
                     
                     Ext.Ajax.request({
                         url: 'http://localhost:5111/api/paises',
@@ -149,11 +160,17 @@ Ext.onReady(function(){
                 fieldLabel: 'Sigla',
                 name: 'sigla'
             },
-            {
-                fieldLabel: 'Código IBGE',
-                name: 'codigo_ibge',
-                vtype:'number'
-            },
+                         {
+                 fieldLabel: 'Código IBGE',
+                 name: 'codigo_ibge',
+                 xtype: 'textfield',
+                 allowBlank: false,
+                 blankText: 'Código IBGE é obrigatório',
+                 maxLength: 2,
+                 minLength: 2,
+                 regex: /^\d{2}$/,
+                 regexText: 'Código IBGE deve ter exatamente 2 dígitos'
+             },
             {
                 fieldLabel: 'Região',
                 name: 'regiao',
@@ -192,12 +209,21 @@ Ext.onReady(function(){
                 var form = simple.getForm();
                 if (form.isValid()) {
                     var values = form.getValues();
+                    // Mapear região de número para string
+                    var regioes = {
+                        1: 'Norte',
+                        2: 'Nordeste', 
+                        3: 'Centro-Oeste',
+                        4: 'Sudeste',
+                        5: 'Sul'
+                    };
+                    
                     var dadosEnviados = {
                         paisId: values.pais,
                         nome: values.nome,
                         sigla: values.sigla,
                         codigoIbge: values.codigo_ibge.toString(),
-                        regiao: values.regiao,
+                        regiao: regioes[values.regiao] || values.regiao,
                         capital: values.capital,
                         ativo: (values.ativo === 'on' || values.ativo === true) ? 'Sim' : 'Não'
                     };
@@ -338,28 +364,42 @@ Ext.onReady(function() {
             items: [{
                 columnWidth: 0.33,
                 layout: 'form',
-                items: [{
-                    fieldLabel: 'Código IBGE',
-                    name: 'codigo_ibge',
-                    xtype: 'numberfield',
-                }]
+                                 items: [{
+                     fieldLabel: 'Código IBGE',
+                     name: 'codigo_ibge',
+                     xtype: 'textfield',
+                     allowBlank: false,
+                     blankText: 'Código IBGE é obrigatório',
+                     maxLength: 7,
+                     minLength: 7,
+                     regex: /^\d{7}$/,
+                     regexText: 'Código IBGE deve ter exatamente 7 dígitos'
+                 }]
             }, {
                 columnWidth: 0.33,
                 layout: 'form',
-                items: [{
-                    fieldLabel: 'Código SIAFI',
-                    name: 'codigo_siafi',
-                    xtype: 'numberfield',
-                }]
+                                 items: [{
+                     fieldLabel: 'Código SIAFI',
+                     name: 'codigo_siafi',
+                     xtype: 'textfield',
+                     maxLength: 4,
+                     minLength: 4,
+                     regex: /^\d{4}$/,
+                     regexText: 'Código SIAFI deve ter exatamente 4 dígitos'
+                 }]
             }, {
                 columnWidth: 0.33,
                 layout: 'form',
-                items: [{
-                    fieldLabel: 'DDD',
-                    name: 'ddd',
-                    anchor: '96%',
-                    xtype: 'numberfield',
-                }]
+                                 items: [{
+                     fieldLabel: 'DDD',
+                     name: 'ddd',
+                     anchor: '96%',
+                     xtype: 'textfield',
+                     maxLength: 2,
+                     minLength: 2,
+                     regex: /^\d{2}$/,
+                     regexText: 'DDD deve ter exatamente 2 dígitos'
+                 }]
             }, {
             }]
         },
@@ -369,21 +409,29 @@ Ext.onReady(function() {
             items: [{
                 columnWidth: 0.5,
                 layout: 'form',
-                items: [{
-                    fieldLabel: 'CEP Inicial',
-                    name: 'cep_inicial',
-                    anchor: '95%',
-                    xtype: 'numberfield',
-                }]
+                                 items: [{
+                     fieldLabel: 'CEP Inicial',
+                     name: 'cep_inicial',
+                     anchor: '95%',
+                     xtype: 'textfield',
+                     maxLength: 8,
+                     minLength: 8,
+                     regex: /^\d{8}$/,
+                     regexText: 'CEP deve ter exatamente 8 dígitos'
+                 }]
             }, {
                 columnWidth: 0.5,
                 layout: 'form',
-                items: [{
-                    fieldLabel: 'CEP Final',
-                    name: 'cep_final',
-                    anchor: '95%',
-                    xtype: 'numberfield',
-                }]
+                                 items: [{
+                     fieldLabel: 'CEP Final',
+                     name: 'cep_final',
+                     anchor: '95%',
+                     xtype: 'textfield',
+                     maxLength: 8,
+                     minLength: 8,
+                     regex: /^\d{8}$/,
+                     regexText: 'CEP deve ter exatamente 8 dígitos'
+                 }]
             }]
         },
 
@@ -457,6 +505,17 @@ Ext.onReady(function() {
                 var form = top.getForm();
                 if (form.isValid()) {
                     var values = form.getValues();
+                    // Mapear timezone de número para string
+                    var timezones = {
+                        1: 'America/Sao_Paulo',
+                        2: 'America/New_York',
+                        3: 'America/Los_Angeles',
+                        4: 'America/Chicago',
+                        5: 'America/Denver',
+                        6: 'America/Phoenix',
+                        7: 'America/Houston'
+                    };
+                    
                     var dadosEnviados = {
                         paisId: values.pais,
                         ufId: values.uf,
@@ -466,7 +525,7 @@ Ext.onReady(function() {
                         ddd: values.ddd,
                         cepInicial: values.cep_inicial,
                         cepFinal: values.cep_final,
-                        timezone: values.timezone,
+                        timezone: timezones[values.timezone] || values.timezone,
                         latitude: values.latitude,
                         longitude: values.longitude,
                         observacao: values.observacao,
@@ -646,10 +705,22 @@ Ext.onReady(function () {
                 var formPanel = form.getForm();
                 if (formPanel.isValid()) {
                     var values = formPanel.getValues();
+                    
+                    // Mapear países e UFs de string para ID
+                    var paises = {
+                        'Brasil': 1,
+                        'Argentina': 3,
+                        'EUA': 2
+                    };
+                    
+                    var ufs = {
+                        'AC': 27, 'AL': 15, 'AM': 24, 'AP': 23, 'BA': 13, 'CE': 19, 'DF': 11, 'ES': 4, 'GO': 10, 'MA': 21, 'MG': 3, 'MS': 8, 'MT': 7, 'PA': 22, 'PB': 17, 'PE': 16, 'PI': 20, 'PR': 6, 'RJ': 2, 'RN': 18, 'RO': 26, 'RR': 25, 'RS': 5, 'SC': 9, 'SE': 14, 'SP': 1, 'TO': 12
+                    };
+                    
                     var dadosEnviados = {
                         primeiroNome: values.primeiroNome,
                         sobrenome: values.sobrenome,
-                        nascimento: values.dataNascimento,
+                        nascimento: values.dataNascimento ? new Date(values.dataNascimento).toISOString() : null,
                         sexo: values.sexo,
                         estadoCivil: values.estadoCivil,
                         cpf: values.cpf,
@@ -658,8 +729,8 @@ Ext.onReady(function () {
                         email: values.email,
                         telefone: values.telefone,
                         celular: values.celular,
-                        endPaisId: values.pais,
-                        endUfId: values.uf,
+                        endPaisId: paises[values.pais] || null,
+                        endUfId: ufs[values.uf] || null,
                         endMunicipio: values.municipio,
                         endCep: values.cep,
                         endLogradouro: values.logradouro,
