@@ -89,10 +89,8 @@ namespace PaisesAPI.Controllers
                 return BadRequest("Dados do país não podem ser nulos.");
             }
 
-            if (id != pais.Id)
-            {
-                return BadRequest("ID do país não confere.");
-            }
+            // Definir o ID do país com base no parâmetro da URL
+            pais.Id = id;
 
             // Verificar se o país existe
             var paisExistente = await _context.Paises.FindAsync(id);
