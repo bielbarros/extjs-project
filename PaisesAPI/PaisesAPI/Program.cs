@@ -1,4 +1,5 @@
 using PaisesAPI.Data;
+using PaisesAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,9 @@ builder.Services.AddSwaggerGen();
 // Configurar Entity Framework
 builder.Services.AddDbContext<PaisesDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Registrar Services
+builder.Services.AddScoped<IPaisService, PaisService>();
 
 // Configurar CORS para permitir requisições do ExtJS
 builder.Services.AddCors(options =>
