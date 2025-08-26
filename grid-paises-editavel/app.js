@@ -128,25 +128,45 @@ Ext.onReady(function(){
                  blankText: 'País é obrigatório',
                  xtype: 'combo',
                  store: new Ext.data.ArrayStore({
-                     fields: ['Id', 'Nome', 'Sigla'],
+                     fields: ['id', 'nome', 'sigla', 'codigoBacen', 'ativo'],
                      data: []
                  }),
-                 displayField: 'Nome',
-                 valueField: 'Id',
+                 displayField: 'nome',
+                 valueField: 'id',
                  editable: false,
                  mode: 'local',
                  forceSelection: true,
                  triggerAction: 'all',
                  listWidth: 250,
-                 tpl: '<tpl for="."><div class="x-combo-list-item">{Nome} ({Sigla})</div></tpl>',
+                 tpl: '<tpl for="."><div class="x-combo-list-item">{nome} ({sigla})</div></tpl>',
                  listeners: {
                      afterrender: function(combo) {
+                         console.log('Carregando países para combo...');
                          Ext.Ajax.request({
                              url: 'http://localhost:5111/api/paises',
                              method: 'GET',
                              success: function(response) {
+                                 console.log('Resposta da API:', response.responseText);
                                  var data = Ext.decode(response.responseText);
-                                 combo.store.loadData(data);
+                                 console.log('Dados decodificados:', data);
+                                 console.log('Store antes do loadData:', combo.store);
+                                 // Limpar store primeiro
+                                 combo.store.removeAll();
+                                 
+                                 // Adicionar registros manualmente
+                                 for (var i = 0; i < data.length; i++) {
+                                     var record = combo.store.add(new combo.store.recordType(data[i]));
+                                 }
+                                 
+                                 console.log('Store após loadData:', combo.store);
+                                 console.log('Número de registros no store:', combo.store.getCount());
+                                 console.log('Primeiro registro:', combo.store.getAt(0));
+                                 console.log('DisplayField:', combo.displayField);
+                                 console.log('ValueField:', combo.valueField);
+                                 console.log('Template:', combo.tpl);
+                                 // Forçar atualização do combo
+                                 combo.clearValue();
+                                 combo.doQuery('', true);
                              },
                              failure: function(response) {
                                  console.error('Erro ao carregar países da API:', response);
@@ -282,26 +302,44 @@ Ext.onReady(function() {
                      blankText: 'País é obrigatório',
                      xtype: 'combo',
                      store: new Ext.data.ArrayStore({
-                         fields: ['Id', 'Nome', 'Sigla'],
+                         fields: ['id', 'nome', 'sigla', 'codigoBacen', 'ativo'],
                          data: []
                      }),
-                     displayField: 'Nome',
-                     valueField: 'Id',
+                     displayField: 'nome',
+                     valueField: 'id',
                      width: 150,
                      editable: false,
                      mode: 'local',
                      forceSelection: true,
                      triggerAction: 'all',
                      listWidth: 250,
-                     tpl: '<tpl for="."><div class="x-combo-list-item">{Nome} ({Sigla})</div></tpl>',
+                     tpl: '<tpl for="."><div class="x-combo-list-item">{nome} ({sigla})</div></tpl>',
                      listeners: {
                          afterrender: function(combo) {
+                             console.log('Carregando países para combo (Município)...');
                              Ext.Ajax.request({
                                  url: 'http://localhost:5111/api/paises',
                                  method: 'GET',
                                  success: function(response) {
+                                     console.log('Resposta da API (Município):', response.responseText);
                                      var data = Ext.decode(response.responseText);
-                                     combo.store.loadData(data);
+                                     console.log('Dados decodificados (Município):', data);
+                                                                           // Limpar store primeiro
+                                      combo.store.removeAll();
+                                      
+                                      // Adicionar registros manualmente
+                                      for (var i = 0; i < data.length; i++) {
+                                          var record = combo.store.add(new combo.store.recordType(data[i]));
+                                      }
+                                      
+                                      console.log('Número de registros no store (Município):', combo.store.getCount());
+                                      console.log('Primeiro registro (Município):', combo.store.getAt(0));
+                                      console.log('DisplayField (Município):', combo.displayField);
+                                      console.log('ValueField (Município):', combo.valueField);
+                                      console.log('Template (Município):', combo.tpl);
+                                      // Forçar atualização do combo
+                                      combo.clearValue();
+                                      combo.doQuery('', true);
                                  },
                                  failure: function(response) {
                                      console.error('Erro ao carregar países da API:', response);
@@ -656,22 +694,40 @@ Ext.onReady(function () {
                                  xtype: 'combo', fieldLabel: 'País', name: 'pais',
                                  mode: 'local', triggerAction: 'all', editable: false,
                                  store: new Ext.data.ArrayStore({
-                                     fields: ['Id', 'Nome', 'Sigla'],
+                                     fields: ['id', 'nome', 'sigla', 'codigoBacen', 'ativo'],
                                      data: []
                                  }),
-                                 displayField: 'Nome',
-                                 valueField: 'Id',
+                                 displayField: 'nome',
+                                 valueField: 'id',
                                  listWidth: 200,
-                                 tpl: '<tpl for="."><div class="x-combo-list-item">{Nome} ({Sigla})</div></tpl>',
+                                 tpl: '<tpl for="."><div class="x-combo-list-item">{nome} ({sigla})</div></tpl>',
                                  anchor: '90%',
                                  listeners: {
                                      afterrender: function(combo) {
+                                         console.log('Carregando países para combo (Pessoa)...');
                                          Ext.Ajax.request({
                                              url: 'http://localhost:5111/api/paises',
                                              method: 'GET',
                                              success: function(response) {
+                                                 console.log('Resposta da API (Pessoa):', response.responseText);
                                                  var data = Ext.decode(response.responseText);
-                                                 combo.store.loadData(data);
+                                                 console.log('Dados decodificados (Pessoa):', data);
+                                                                                                   // Limpar store primeiro
+                                                  combo.store.removeAll();
+                                                  
+                                                  // Adicionar registros manualmente
+                                                  for (var i = 0; i < data.length; i++) {
+                                                      var record = combo.store.add(new combo.store.recordType(data[i]));
+                                                  }
+                                                  
+                                                  console.log('Número de registros no store (Pessoa):', combo.store.getCount());
+                                                  console.log('Primeiro registro (Pessoa):', combo.store.getAt(0));
+                                                  console.log('DisplayField (Pessoa):', combo.displayField);
+                                                  console.log('ValueField (Pessoa):', combo.valueField);
+                                                  console.log('Template (Pessoa):', combo.tpl);
+                                                  // Forçar atualização do combo
+                                                  combo.clearValue();
+                                                  combo.doQuery('', true);
                                              },
                                              failure: function(response) {
                                                  console.error('Erro ao carregar países da API:', response);
