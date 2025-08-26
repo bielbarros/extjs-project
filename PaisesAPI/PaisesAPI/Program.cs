@@ -18,6 +18,9 @@ builder.Services.AddDbContext<PaisesDbContext>(options =>
 
 // Registrar Services
 builder.Services.AddScoped<IPaisService, PaisService>();
+builder.Services.AddScoped<IUFService, UFService>();
+builder.Services.AddScoped<IMunicipioService, MunicipioService>();
+builder.Services.AddScoped<IPessoaService, PessoaService>();
 
 // Configurar CORS para permitir requisições do ExtJS
 builder.Services.AddCors(options =>
