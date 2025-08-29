@@ -157,7 +157,7 @@ Ext.onReady(function(){
                                  for (var i = 0; i < data.length; i++) {
                                      var record = combo.store.add(new combo.store.recordType(data[i]));
                                  }
-                                 
+                                 // debug para verificar se os dados foram carregados corretamente
                                  console.log('Store após loadData:', combo.store);
                                  console.log('Número de registros no store:', combo.store.getCount());
                                  console.log('Primeiro registro:', combo.store.getAt(0));
